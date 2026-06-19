@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Summer Hazard Odds, Vegas Insider</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1E3A5F;--sand:#F5EDD6;--ocean:#2E86AB;--coral:#E8543A;
+  --sun:#F2A541;--white:#fff;--text:#1C1C1C;--muted:#6B6B6B;
+  --border:#E4DBCA;--shark:#1B6CA8;--light:#D4860A;--jelly:#7B4FA6;--heat:#D94F2B;
+  --r:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:"Inter",system-ui,sans-serif;background:var(--sand);color:var(--text)}
+
+/* HERO */
+.hero{position:relative;min-height:520px;display:flex;align-items:center;overflow:hidden;background:var(--navy)}
+.hero-bg{position:absolute;inset:0;background-image:url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1740&auto=format&fit=crop");background-size:cover;background-position:center}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,58,95,.92) 0%,rgba(30,58,95,.78) 50%,rgba(46,134,171,.6) 100%)}
+.hero-con{position:relative;z-index:2;max-width:800px;margin:0 auto;padding:80px 24px 72px;text-align:center}
+.vi-eye{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--sun);margin-bottom:18px;display:block}
+.hero-h1{font-family:"Playfair Display",serif;font-size:clamp(2.4rem,6.5vw,4.4rem);font-weight:800;color:#fff;line-height:1.04;margin-bottom:16px}
+.hero-h1 span{color:var(--sun)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.85);line-height:1.75;max-width:480px;margin:0 auto 44px}
+
+
+/* SEARCH */
+.sw{max-width:800px;margin:-50px auto 0;padding:0 20px;position:relative;z-index:10}
+.sc{background:var(--white);border-radius:var(--r);box-shadow:0 16px 56px rgba(30,58,95,.2);overflow:hidden}
+.sc-top{background:var(--navy);padding:22px 32px;border-bottom:3px solid var(--sun)}
+.sc-top h2{font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--sun);margin-bottom:3px}
+.sc-top p{font-size:11px;color:rgba(255,255,255,.6)}
+.sc-body{padding:24px 32px 28px;display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap}
+.sc-field{flex:1;min-width:240px}
+.sc-field label{display:block;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.sc-field select{width:100%;font-size:15px;font-weight:600;color:var(--navy);background:var(--sand);border:2px solid var(--border);border-radius:10px;padding:12px 40px 12px 16px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231E3A5F' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;cursor:pointer;transition:border-color .2s}
+.sc-field select:focus{outline:none;border-color:var(--ocean)}
+.btn-go{background:var(--coral);color:#fff;font-size:14px;font-weight:800;border:none;border-radius:10px;padding:14px 32px;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}
+.btn-go:hover{background:#cf3d27}.btn-go:active{transform:scale(.98)}
+
+/* RESULT */
+.rw{max-width:800px;margin:24px auto 0;padding:0 20px;display:none}
+.rw.on{display:block}
+.rc{background:var(--white);border-radius:var(--r);box-shadow:0 8px 36px rgba(30,58,95,.13);overflow:hidden}
+
+/* Destination hero */
+.dh-img{position:relative;height:340px;overflow:hidden}
+.dh-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s}
+.dh-img:hover img{transform:scale(1.03)}
+.dh-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,40,70,.94) 0%,rgba(20,40,70,.35) 55%,transparent 100%)}
+.dh-body{position:absolute;bottom:0;left:0;right:0;padding:28px 32px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.dh-name{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.8vw,2.4rem);font-weight:700;color:#fff;line-height:1.08;margin-bottom:5px}
+.dh-meta{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.dh-tier-block{text-align:right;flex-shrink:0}
+.dh-tier-lbl{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.5);display:block;margin-bottom:6px}
+.dh-tier-badge{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:6px 16px;border-radius:20px;color:#fff;display:inline-block}
+.dh-note{font-size:10px;color:rgba(255,255,255,.45);display:block;margin-top:6px}
+
+/* rank strip */
+.rank-strip{display:flex;background:var(--navy)}
+.rs{flex:1;padding:14px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.07)}
+.rs:last-child{border-right:none}
+.rs-icon{font-size:15px;display:block;margin-bottom:3px}
+.rs-val{font-family:"Playfair Display",serif;font-size:19px;font-weight:700;color:rgba(255,255,255,.5);display:block;line-height:1}
+.rs-val.top3{color:var(--sun)}
+.rs-val.na{font-family:"Inter",sans-serif;font-size:11px;color:rgba(255,255,255,.25);font-weight:400}
+.rs-lbl{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-top:3px}
+
+/* 2x2 hazard grid */
+.hgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px;background:#EDE5D0}
+@media(max-width:500px){.hgrid{grid-template-columns:1fr;gap:14px;padding:16px}}
+.hcard{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(30,58,95,.1);border:1px solid var(--border)}
+.hcard.zero{background:#FAF8F5}
+
+/* card photo */
+.hc-photo{position:relative;height:160px;overflow:hidden}
+.hc-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.hcard:hover .hc-photo img{transform:scale(1.04)}
+.hc-photo-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 52%)}
+.hc-rank-pill{position:absolute;top:9px;right:9px;font-size:10px;font-weight:700;background:rgba(0,0,0,.5);color:#fff;padding:3px 9px;border-radius:20px}
+.hc-rank-pill.gold{background:var(--sun);color:var(--navy)}
+
+/* probability display, replaces score */
+.hc-prob-block{position:absolute;bottom:9px;left:12px;right:12px}
+.hc-prob-pct{font-family:"Playfair Display",serif;font-size:26px;font-weight:700;color:#fff;line-height:1;display:block}
+.hc-prob-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em}
+
+/* card body */
+.hc-body{padding:14px 16px 16px}
+.hc-title{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.02em;margin-bottom:10px}
+.hc-title-icon{font-size:14px}
+.t-sh{color:var(--shark)}.t-li{color:var(--light)}.t-je{color:var(--jelly)}.t-he{color:var(--heat)}
+
+.hc-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:12px}
+.hc-bar-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.3,0,.2,1)}
+.fill-sh{background:var(--shark)}.fill-li{background:var(--light)}.fill-je{background:var(--jelly)}.fill-he{background:var(--heat)}
+
+.hc-stat{font-size:12px;color:var(--text);line-height:1.6;margin-bottom:10px}
+.hc-zero{font-size:11px;color:var(--muted);font-style:italic;line-height:1.55;padding:2px 0 10px}
+
+/* comparison block, the key new element */
+.hc-comp{display:flex;align-items:center;gap:12px;background:var(--navy);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.hc-comp-img{width:48px;height:48px;border-radius:8px;object-fit:cover;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.hc-comp-text{flex:1;min-width:0}
+.hc-comp-main{font-size:12px;font-weight:700;color:#fff;line-height:1.4;display:block}
+.hc-comp-sub{font-size:10px;color:rgba(255,255,255,.6);display:block;margin-top:3px;line-height:1.45}
+
+.hc-source{font-size:10px;color:var(--muted);border-top:1px solid var(--border);padding-top:8px}
+
+/* STRIPS */
+.strips{max-width:800px;margin:52px auto 0;padding:0 20px}
+.sec-ey{font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--ocean);margin-bottom:8px}
+.sec-h{font-family:"Playfair Display",serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--navy);margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--border)}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:24px}
+.tab{font-size:11px;font-weight:700;padding:8px 15px;border-radius:22px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;transition:all .15s}
+.tab:hover{border-color:var(--navy);color:var(--navy)}
+.tab.on{border-color:transparent;color:#fff}
+.t-ov.on{background:var(--navy)}.t-sh.on{background:var(--shark)}
+.t-li.on{background:var(--light)}.t-je.on{background:var(--jelly)}
+.t-he.on{background:var(--heat)}.t-sf.on{background:#2A6041}
+.strip{display:none}.strip.on{display:block}
+.strip-h{font-family:"Playfair Display",serif;font-size:1.25rem;font-weight:700;color:var(--navy);margin-bottom:5px}
+.strip-sub{font-size:12px;color:var(--muted);margin-bottom:18px;line-height:1.6}
+.rcards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:680px){.rcards{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:380px){.rcards{grid-template-columns:repeat(2,1fr)}}
+.rcard{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.rcard:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(30,58,95,.13)}
+.rcard.no1{border:2px solid var(--sun)}
+.rcard-img{width:100%;height:100px;object-fit:cover;display:block}
+.rcard-body{padding:9px 11px 11px}
+.rcard-pos{font-size:10px;font-weight:800;color:var(--muted);margin-bottom:3px}
+.rcard-pos.p1{color:var(--sun)}
+.rcard-name{font-size:11px;font-weight:700;color:var(--navy);line-height:1.25;margin-bottom:2px}
+.rcard-loc{font-size:10px;color:var(--muted)}
+.rcard-pct{font-family:"Playfair Display",serif;font-size:17px;font-weight:700;color:var(--navy);margin-top:5px}
+.rcard-pct span{font-size:9px;color:var(--muted);font-family:"Inter",sans-serif}
+
+/* TABLE */
+.tbl{max-width:800px;margin:48px auto 0;padding:0 20px}
+.twrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border);box-shadow:0 4px 16px rgba(30,58,95,.07)}
+table{width:100%;border-collapse:collapse;font-size:11px}
+thead tr{background:var(--navy)}
+thead th{padding:9px 10px;text-align:left;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);white-space:nowrap;cursor:pointer;user-select:none;transition:color .15s}
+thead th:hover{color:var(--sun)}
+thead th.as{color:var(--sun)}
+thead th[data-c]::after{content:" \21C5";font-size:8px;opacity:.3}
+thead th.as.asc::after{content:" \2191";opacity:1}
+thead th.as.desc::after{content:" \2193";opacity:1}
+tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+tbody tr:hover{background:rgba(46,134,171,.05)}
+tbody td{padding:7px 10px;vertical-align:middle}
+.td-rank{font-weight:700;color:var(--muted);font-size:10px;text-align:center;width:32px}
+.td-name{font-weight:700;color:var(--navy);font-size:12px;display:block}
+.td-loc{font-size:9px;color:var(--muted);display:block;margin-top:1px}
+.pct-cell{font-weight:700;font-size:11px;color:var(--text)}
+.pct-na{color:var(--muted);font-size:10px;font-style:italic}
+.tier-pill{display:inline-block;font-weight:700;font-size:10px;padding:2px 7px;border-radius:4px;color:#fff;white-space:nowrap}
+
+/* METHODOLOGY / BOTTOM */
+
+.intro-sec{background:var(--white);border-top:3px solid var(--sun);margin-top:0}
+.intro-inner{max-width:800px;margin:0 auto;padding:48px 24px 52px}
+.intro-ey{font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--ocean);margin-bottom:8px}
+.intro-h{font-family:"Playfair Display",serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--navy);margin-bottom:32px;padding-bottom:16px;border-bottom:2px solid var(--border)}
+.findings-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:600px){.findings-grid{grid-template-columns:1fr}}
+.finding{display:flex;flex-direction:column;gap:0;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 3px 14px rgba(30,58,95,.07)}
+.finding-img-wrap{position:relative;height:140px;overflow:hidden;flex-shrink:0}
+.finding-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.finding:hover .finding-img{transform:scale(1.04)}
+.finding-img-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,40,70,.75) 0%,rgba(20,40,70,.1) 60%,transparent 100%)}
+.finding-hazard-lbl{position:absolute;bottom:10px;left:14px;font-size:11px;font-weight:700;letter-spacing:.03em;color:#fff;opacity:.9}
+.finding-img-shark .finding-img-ov{background:linear-gradient(to top,rgba(27,108,168,.8) 0%,rgba(27,108,168,.15) 60%,transparent 100%)}
+.finding-img-lightning .finding-img-ov{background:linear-gradient(to top,rgba(180,120,0,.8) 0%,rgba(180,120,0,.15) 60%,transparent 100%)}
+.finding-img-jellyfish .finding-img-ov{background:linear-gradient(to top,rgba(90,50,140,.8) 0%,rgba(90,50,140,.15) 60%,transparent 100%)}
+.finding-img-heat .finding-img-ov{background:linear-gradient(to top,rgba(180,50,30,.8) 0%,rgba(180,50,30,.15) 60%,transparent 100%)}
+.finding-body{padding:16px 18px 20px}
+.finding-stat{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:8px}
+.finding-text{font-size:12px;color:#555;line-height:1.65}
+.intro-lede{margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--border)}
+.intro-lede-h{font-family:"Playfair Display",serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:var(--navy);margin-bottom:16px}
+.intro-lede-p{font-size:13px;color:#444;line-height:1.75;margin-bottom:12px;max-width:680px}
+.intro-lede-p:last-child{margin-bottom:0}
+.raw-bottom{background:var(--navy);margin-top:48px;padding:24px}
+.raw-bottom-inner{max-width:800px;margin:0 auto}
+.raw-details{border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden}
+.raw-summary{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;font-size:13px;font-weight:700;color:rgba(255,255,255,.75);list-style:none;user-select:none;transition:background .15s}
+.raw-summary:hover{background:rgba(255,255,255,.05)}
+.raw-summary::-webkit-details-marker{display:none}
+.raw-details[open] .raw-arrow{transform:rotate(180deg)}
+.raw-arrow{font-size:10px;color:rgba(255,255,255,.4);transition:transform .2s}
+.raw-content{padding:24px 20px;border-top:1px solid rgba(255,255,255,.08)}
+.meth-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:28px}
+@media(max-width:600px){.meth-grid{grid-template-columns:1fr;gap:20px}}
+.meth-ey{font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--sun);margin-bottom:8px}
+.meth-p{font-size:12px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:10px}
+.src-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.src-list li{font-size:11px;color:rgba(255,255,255,.62);line-height:1.55;padding-left:12px;border-left:2px solid var(--sun)}
+.src-list li strong{color:#fff}
+.raw-tabs-wrap{margin-top:20px}
+.raw-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.raw-tab{font-size:11px;font-weight:700;padding:6px 13px;border-radius:18px;border:1px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.55);cursor:pointer;transition:all .15s}
+.raw-tab:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.raw-tab.on{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25)}
+.raw-panel{display:none}.raw-panel.on{display:block}
+.raw-twrap{overflow-x:auto;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+.raw-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.raw-tbl thead tr{background:rgba(255,255,255,.06)}
+.raw-tbl thead th{padding:9px 12px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);white-space:nowrap}
+.raw-tbl tbody tr{border-bottom:1px solid rgba(255,255,255,.05)}
+.raw-tbl tbody tr:hover{background:rgba(255,255,255,.03)}
+.raw-tbl tbody td{padding:8px 12px;color:rgba(255,255,255,.75);font-size:11px}
+.raw-tbl tbody td:first-child{font-weight:600;color:#fff}
+.raw-pct{font-weight:700;color:#fff}
+.raw-stat{font-size:10px;color:rgba(255,255,255,.5);display:block;margin-top:2px}
+.raw-na{color:rgba(255,255,255,.22);font-style:italic}
+.footer-brand{text-align:center;padding-top:24px;margin-top:20px;border-top:1px solid rgba(255,255,255,.08)}
+.footer-logo{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;color:var(--sun);margin-bottom:6px}
+.footer-brand p{font-size:11px;color:rgba(255,255,255,.32);line-height:1.6}
+
+
+/* RAW DATA TABS */
+.raw-sec{border-top:1px solid rgba(255,255,255,.1);padding-top:40px;margin-bottom:40px}
+.raw-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.raw-tab{font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.6);cursor:pointer;transition:all .15s}
+.raw-tab:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.raw-tab.on{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3)}
+.raw-panel{display:none}.raw-panel.on{display:block}
+.raw-twrap{overflow-x:auto;border-radius:10px;border:1px solid rgba(255,255,255,.1)}
+.raw-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.raw-tbl thead tr{background:rgba(255,255,255,.08)}
+.raw-tbl thead th{padding:10px 13px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap}
+.raw-tbl tbody tr{border-bottom:1px solid rgba(255,255,255,.06)}
+.raw-tbl tbody tr:hover{background:rgba(255,255,255,.04)}
+.raw-tbl tbody td{padding:9px 13px;color:rgba(255,255,255,.8)}
+.raw-tbl tbody td:first-child{font-weight:600;color:#fff}
+.raw-pct{font-weight:700;color:#fff}
+.raw-stat{font-size:10px;color:rgba(255,255,255,.55);display:block;margin-top:2px}
+.raw-na{color:rgba(255,255,255,.25);font-style:italic}
+
+.footer-brand{text-align:center;padding-top:32px;border-top:1px solid rgba(255,255,255,.1)}
+.footer-logo{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:var(--sun);margin-bottom:8px}
+.footer-brand p{font-size:11px;color:rgba(255,255,255,.38);line-height:1.6}
+/* COMPARISON ROW */
+.cmp-row{max-width:800px;margin:0 auto;padding:0 20px}
+.cmp-row-inner{background:var(--white);border-radius:var(--r);box-shadow:0 4px 20px rgba(30,58,95,.08);overflow:hidden;padding:24px 28px 28px;border-top:3px solid var(--border)}
+.cmp-ey{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:16px}
+.cmp-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:600px){.cmp-cards{grid-template-columns:repeat(2,1fr)}}
+.cmp-card{padding:14px 16px;border-radius:10px;background:var(--sand)}
+.cmp-shark{border-top:3px solid var(--shark)}
+.cmp-lightning{border-top:3px solid var(--light)}
+.cmp-jellyfish{border-top:3px solid var(--jelly)}
+.cmp-heat{border-top:3px solid var(--heat)}
+.cmp-hazard-lbl{font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--muted);margin-bottom:8px}
+.cmp-mult{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:var(--navy);line-height:1;margin-bottom:5px}
+.cmp-mult.higher{color:var(--coral)}
+.cmp-mult.lower{color:#2A6041}
+.cmp-mult.similar{color:var(--ocean)}
+.cmp-mult.na{font-family:"Inter",sans-serif;font-size:13px;color:var(--muted);font-weight:400}
+.cmp-desc{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* RISK SCALE */
+/* BAR CHART */
+.risk-scale-sec{max-width:800px;margin:20px auto 0;padding:0 20px}
+.risk-scale-inner{background:var(--white);border-radius:var(--r);box-shadow:0 4px 20px rgba(30,58,95,.08);padding:28px 28px 32px}
+.risk-scale-sub{font-size:12px;color:var(--muted);margin-bottom:28px;line-height:1.5;max-width:560px}
+.barchart-wrap{overflow-x:auto}
+.barchart{display:flex;flex-direction:column;gap:0;min-width:420px}
+
+.bc-row{display:grid;grid-template-columns:120px 1fr 64px;align-items:center;gap:0;padding:5px 0;border-bottom:1px solid rgba(228,219,202,.5)}
+.bc-row:last-child{border-bottom:none}
+.bc-row.bc-dest{background:rgba(30,58,95,.03);border-radius:4px;margin:2px -4px;padding:6px 4px}
+
+/* icon + label column */
+.bc-meta{display:flex;align-items:center;gap:8px;padding-right:12px}
+.bc-icon{width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0;filter:grayscale(.3)}
+.bc-icon-box{width:28px;height:28px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.bc-label{font-size:11px;font-weight:500;color:var(--text);line-height:1.25}
+.bc-label.dest-label{font-weight:700;color:var(--navy)}
+
+/* bar column */
+.bc-bar-wrap{position:relative;height:18px;background:var(--sand);border-radius:3px;overflow:hidden}
+.bc-bar{height:100%;border-radius:3px;transition:width 0.8s cubic-bezier(.35,0,.2,1);min-width:2px}
+.bc-bar.everyday{background:rgba(30,58,95,.18)}
+
+/* pct column */
+.bc-pct{font-size:10px;font-weight:700;color:var(--muted);text-align:right;padding-left:10px;white-space:nowrap}
+.bc-pct.dest-pct{color:var(--navy)}
+
+/* section dividers */
+.bc-divider{font-size:12px;font-weight:700;color:var(--navy);padding:14px 0 8px;grid-column:1/-1}
+
+
+
+.hc-context-note{
+  display:inline-block;
+  font-size:11px;
+  font-weight:600;
+  color:var(--navy);
+  line-height:1.4;
+  background:var(--sand);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:5px 12px;
+  margin:8px 0 6px;
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-con">
+    <span class="vi-eye">Vegas Insider &middot; Summer 2025</span>
+    <h1 class="hero-h1">How Dangerous Is Your<br><span>Summer Vacation?</span></h1>
+    <p class="hero-sub">Summer Hazard Odds. 42 American destinations ranked by implied risk across four real hazards. Powered by CDC, NOAA, and ISAF data.</p>
+
+  </div>
+</section>
+
+<div class="intro-sec">
+  <div class="intro-inner">
+    <div class="intro-lede">
+      <h2 class="intro-lede-h">Summer Hazard Odds</h2>
+      <p class="intro-lede-p">We analyzed four of the most common summer hazards , including shark attacks, lightning, jellyfish, and heat illness, across 42 of America&rsquo;s most popular vacation destinations. Using historical data from the CDC, NOAA, and the International Shark Attack File, we calculated the implied probability of an incident for each hazard at each destination, based on a standard two-week summer trip with active outdoor activity.</p>
+      <p class="intro-lede-p">The result is a data-backed risk index that puts each destination&rsquo;s danger in real context These are not scare statistics. They are honest odds you can compare to things that happen in everyday life.</p>
+    </div>
+    <div class="intro-ey">Key Findings</div>
+    <h2 class="intro-h">What the data reveals</h2>
+    <div class="findings-grid">
+      <div class="finding">
+        <div class="finding-img-wrap finding-img-shark">
+          <img src="https://images.unsplash.com/photo-1563186627-0d185db94083?q=80&w=400&auto=format&fit=crop" alt="Shark" class="finding-img">
+          <div class="finding-img-ov"></div>
+          <span class="finding-hazard-lbl">Shark</span>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat">New Smyrna Beach ranks #1 nationally</div>
+          <div class="finding-text">Volusia County, FL has recorded more unprovoked attacks than any other stretch of coastline in the world. Your shark risk there is 7x the US national average . Still just 0.00015% per trip, but the highest in the dataset.</div>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="finding-img-wrap finding-img-lightning">
+          <img src="https://images.unsplash.com/photo-1559087867-ce4c91325525?q=80&w=400&auto=format&fit=crop" alt="Lightning" class="finding-img">
+          <div class="finding-img-ov"></div>
+          <span class="finding-hazard-lbl">Lightning</span>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat">Rocky Mountain NP outranks every beach</div>
+          <div class="finding-text">Colorado&rsquo;s exposed high-altitude terrain gives Rocky Mountain NP a higher lightning risk score than any coastal destination. Florida&rsquo;s 79 CDC-recorded deaths 2006&ndash;2021 lead all states . Summer afternoon storms in the Rockies are a serious and underappreciated hazard.</div>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="finding-img-wrap finding-img-jellyfish">
+          <img src="https://images.unsplash.com/photo-1508311603478-ce574376c3cf?q=80&w=400&auto=format&fit=crop" alt="Jellyfish" class="finding-img">
+          <div class="finding-img-ov"></div>
+          <span class="finding-hazard-lbl">Jellyfish</span>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat">Hawaii&rsquo;s box jellyfish arrive on a lunar calendar</div>
+          <div class="finding-text">Waikiki and the Florida Keys both hit the maximum jellyfish exposure score. Hawaii&rsquo;s box jellyfish surge predictably 9&ndash;10 days after each full moon. Florida deals with Portuguese man-of-war year-round. Jellyfish risk runs as high as 0.8% per trip at peak destinations.</div>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="finding-img-wrap finding-img-heat">
+          <img src="https://images.unsplash.com/photo-1740560516658-5a94b0b715ed?q=80&w=400&auto=format&fit=crop" alt="Heat" class="finding-img">
+          <div class="finding-img-ov"></div>
+          <span class="finding-hazard-lbl">Heat</span>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat">Grand Canyon hits 2.9%, the highest risk in the dataset</div>
+          <div class="finding-text">Arizona and Nevada score maximum on heat. A 2.9% chance of heat illness per 2-week trip isn&rsquo;t a scare number . That is CDC data. Heat is the only hazard where the risk is genuinely comparable to everyday life events like a fender bender or a bee sting.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sw">
+  <div class="sc">
+    <div class="sc-top">
+      <h2>Find Your Destination</h2>
+      <p>Risk percentages are per 2-week summer trip with active outdoor activity not a medical prediction</p>
+    </div>
+    <div class="sc-body">
+      <div class="sc-field">
+        <label for="dsel">Select a destination</label>
+        <select id="dsel"><option value="">Choose a destination&hellip;</option></select>
+      </div>
+      <button class="btn-go" id="gobtn">See Risk Breakdown &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<div class="rw" id="rw">
+  <div class="rc">
+
+    <div class="dh-img">
+      <img id="ri" src="" alt="">
+      <div class="dh-ov"></div>
+      <div class="dh-body">
+        <div>
+          <div class="dh-name" id="rname"></div>
+          <div class="dh-meta" id="rmeta"></div>
+        </div>
+        <div class="dh-tier-block">
+          <span class="dh-tier-lbl">Overall Risk Tier</span>
+          <span class="dh-tier-badge" id="rtier"></span>
+          <span class="dh-note" id="rnote"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rank-strip">
+      <div class="rs"><span class="rs-icon">&#x1F3C6;</span><span class="rs-val" id="rv0">--</span><span class="rs-lbl">Overall</span></div>
+      <div class="rs"><span class="rs-icon">&#x1F988;</span><span class="rs-val" id="rv1">--</span><span class="rs-lbl">Shark</span></div>
+      <div class="rs"><span class="rs-icon">&#x26A1;</span><span class="rs-val" id="rv2">--</span><span class="rs-lbl">Lightning</span></div>
+      <div class="rs"><span class="rs-icon">&#x1FAB7;</span><span class="rs-val" id="rv3">--</span><span class="rs-lbl">Jellyfish</span></div>
+      <div class="rs"><span class="rs-icon">&#x1F321;</span><span class="rs-val" id="rv4">--</span><span class="rs-lbl">Heat</span></div>
+    </div>
+
+    <div class="hgrid">
+
+      <div class="hcard" id="hc-shark">
+        <div class="hc-photo">
+          <img src="https://images.unsplash.com/photo-1563186627-0d185db94083?q=80&w=700&auto=format&fit=crop" alt="Shark" loading="lazy">
+          <div class="hc-photo-ov"></div>
+          <div class="hc-prob-block">
+            <span class="hc-prob-pct" id="hpct-shark">--</span>
+            <span class="hc-prob-lbl">risk per 2-week trip</span>
+          </div>
+          <span class="hc-rank-pill" id="hrk-shark" style="display:none"></span>
+        </div>
+        <div class="hc-body">
+          <div class="hc-title t-sh"><span class="hc-title-icon">&#x1F988;</span>Shark Attack Risk</div>
+          <div class="hc-bar"><div class="hc-bar-fill fill-sh" id="hbar-shark" style="width:0%"></div></div>
+          <div id="hstat-shark" class="hc-stat"></div>
+
+          <div id="hctx-shark" class="hc-context-note"></div>
+          <div id="hsrc-shark" class="hc-source"></div>
+        </div>
+      </div>
+
+      <div class="hcard" id="hc-lightning">
+        <div class="hc-photo">
+          <img src="https://images.unsplash.com/photo-1559087867-ce4c91325525?q=80&w=700&auto=format&fit=crop" alt="Lightning" loading="lazy">
+          <div class="hc-photo-ov"></div>
+          <div class="hc-prob-block">
+            <span class="hc-prob-pct" id="hpct-lightning">--</span>
+            <span class="hc-prob-lbl">risk per 2-week trip</span>
+          </div>
+          <span class="hc-rank-pill" id="hrk-lightning" style="display:none"></span>
+        </div>
+        <div class="hc-body">
+          <div class="hc-title t-li"><span class="hc-title-icon">&#x26A1;</span>Lightning Risk</div>
+          <div class="hc-bar"><div class="hc-bar-fill fill-li" id="hbar-lightning" style="width:0%"></div></div>
+          <div id="hstat-lightning" class="hc-stat"></div>
+
+          <div id="hctx-lightning" class="hc-context-note"></div>
+          <div id="hsrc-lightning" class="hc-source"></div>
+        </div>
+      </div>
+
+      <div class="hcard" id="hc-jellyfish">
+        <div class="hc-photo">
+          <img src="https://images.unsplash.com/photo-1508311603478-ce574376c3cf?q=80&w=700&auto=format&fit=crop" alt="Jellyfish" loading="lazy">
+          <div class="hc-photo-ov"></div>
+          <div class="hc-prob-block">
+            <span class="hc-prob-pct" id="hpct-jellyfish">--</span>
+            <span class="hc-prob-lbl">risk per 2-week trip</span>
+          </div>
+          <span class="hc-rank-pill" id="hrk-jellyfish" style="display:none"></span>
+        </div>
+        <div class="hc-body">
+          <div class="hc-title t-je"><span class="hc-title-icon">&#x1FAB7;</span>Jellyfish Risk</div>
+          <div class="hc-bar"><div class="hc-bar-fill fill-je" id="hbar-jellyfish" style="width:0%"></div></div>
+          <div id="hstat-jellyfish" class="hc-stat"></div>
+
+          <div id="hctx-jellyfish" class="hc-context-note"></div>
+          <div id="hsrc-jellyfish" class="hc-source"></div>
+        </div>
+      </div>
+
+      <div class="hcard" id="hc-heat">
+        <div class="hc-photo">
+          <img src="https://images.unsplash.com/photo-1740560516658-5a94b0b715ed?q=80&w=700&auto=format&fit=crop" alt="Heat" loading="lazy">
+          <div class="hc-photo-ov"></div>
+          <div class="hc-prob-block">
+            <span class="hc-prob-pct" id="hpct-heat">--</span>
+            <span class="hc-prob-lbl">risk per 2-week trip</span>
+          </div>
+          <span class="hc-rank-pill" id="hrk-heat" style="display:none"></span>
+        </div>
+        <div class="hc-body">
+          <div class="hc-title t-he"><span class="hc-title-icon">&#x1F321;</span>Heat Illness Risk</div>
+          <div class="hc-bar"><div class="hc-bar-fill fill-he" id="hbar-heat" style="width:0%"></div></div>
+          <div id="hstat-heat" class="hc-stat"></div>
+
+          <div id="hctx-heat" class="hc-context-note"></div>
+          <div id="hsrc-heat" class="hc-source"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <!-- DATASET COMPARISON ROW -->
+  <div class="cmp-row" id="cmp-row" style="display:none">
+    <div class="cmp-row-inner">
+      <div class="cmp-ey">How It Compares</div>
+      <div class="cmp-cards">
+        <div class="cmp-card cmp-shark">
+          <div class="cmp-hazard-lbl">Shark</div>
+          <div class="cmp-mult" id="cmp-mult-shark"></div>
+          <div class="cmp-desc" id="cmp-desc-shark"></div>
+        </div>
+        <div class="cmp-card cmp-lightning">
+          <div class="cmp-hazard-lbl">Lightning</div>
+          <div class="cmp-mult" id="cmp-mult-lightning"></div>
+          <div class="cmp-desc" id="cmp-desc-lightning"></div>
+        </div>
+        <div class="cmp-card cmp-jellyfish">
+          <div class="cmp-hazard-lbl">Jellyfish</div>
+          <div class="cmp-mult" id="cmp-mult-jellyfish"></div>
+          <div class="cmp-desc" id="cmp-desc-jellyfish"></div>
+        </div>
+        <div class="cmp-card cmp-heat">
+          <div class="cmp-hazard-lbl">Heat</div>
+          <div class="cmp-mult" id="cmp-mult-heat"></div>
+          <div class="cmp-desc" id="cmp-desc-heat"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK SCALE -->
+  <div class="risk-scale-sec" id="risk-scale-sec" style="display:none">
+    <div class="risk-scale-inner">
+      <div class="cmp-ey">Risk in Context</div>
+      <p class="risk-scale-sub">Your destination risks compared to common everyday events. Bars show relative probability on a logarithmic scale.</p>
+      <div class="barchart-wrap">
+        <div class="barchart" id="barchart"></div>
+      </div>
+    </div>
+  </div></div>
+
+<!-- STRIPS -->
+<div class="strips">
+  <div class="sec-ey">Rankings</div>
+  <h2 class="sec-h">Top 10 by hazard</h2>
+  <div class="tabs">
+    <button class="tab t-ov on" id="tb-ov">&#x1F3C6; Overall</button>
+    <button class="tab t-sh" id="tb-sh">&#x1F988; Shark</button>
+    <button class="tab t-li" id="tb-li">&#x26A1; Lightning</button>
+    <button class="tab t-je" id="tb-je">&#x1FAB7; Jellyfish</button>
+    <button class="tab t-he" id="tb-he">&#x1F321; Heat</button>
+    <button class="tab t-sf" id="tb-sf">&#x1F33F; Safest</button>
+  </div>
+  <div id="st-ov" class="strip on"><div class="strip-h">Most Dangerous Summer Destinations</div><div class="strip-sub">Ranked by average score across applicable hazards. Florida dominates overall, but Arizona desert parks rank higher than most expect.</div><div class="rcards" id="rc-ov"></div></div>
+  <div id="st-sh" class="strip"><div class="strip-h">Most Shark-Prone Destinations</div><div class="strip-sub">Volusia County, FL is the shark attack capital of the world per ISAF. Myrtle Beach ranks #2, edging out both Hawaii destinations.</div><div class="rcards" id="rc-sh"></div></div>
+  <div id="st-li" class="strip"><div class="strip-h">Most Lightning-Exposed Destinations</div><div class="strip-sub">Rocky Mountain NP scores higher than every beach in America. Colorado recorded 24 lightning deaths 2006-2021, third highest nationally (CDC).</div><div class="rcards" id="rc-li"></div></div>
+  <div id="st-je" class="strip"><div class="strip-h">Worst Destinations for Jellyfish</div><div class="strip-sub">Hawaii box jellyfish arrive on a lunar calendar. Ocean City, MD ranks 7th nationally despite having no tropical reputation.</div><div class="rcards" id="rc-je"></div></div>
+  <div id="st-he" class="strip"><div class="strip-h">Most Heat-Dangerous Destinations</div><div class="strip-sub">Grand Canyon, Phoenix and Las Vegas all hit the maximum score. Arizona and Nevada rated Extreme tier by CDC.</div><div class="rcards" id="rc-he"></div></div>
+  <div id="st-sf" class="strip"><div class="strip-h">Safest Summer Destinations</div><div class="strip-sub">Acadia NP and Cannon Beach score lowest across all applicable hazards. Cold water, cool temperatures, minimal marine activity.</div><div class="rcards" id="rc-sf"></div></div>
+</div>
+
+<!-- TABLE -->
+<div class="tbl" style="padding-bottom:0">
+  <div class="sec-ey">Full Rankings</div>
+  <h2 class="sec-h" style="margin-bottom:16px;padding-bottom:14px">All 42 destinations. Click any column to sort.</h2>
+  <div class="twrap">
+    <table>
+      <thead><tr>
+        <th data-c="rank" style="text-align:center">Rank</th>
+        <th data-c="name">Destination</th>
+        <th data-c="overall" class="as desc">Tier</th>
+        <th data-c="shark">&#x1F988; Shark</th>
+        <th data-c="lightning">&#x26A1; Lightning</th>
+        <th data-c="jellyfish">&#x1FAB7; Jellyfish</th>
+        <th data-c="heat">&#x1F321; Heat</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="raw-bottom">
+  <div class="raw-bottom-inner">
+
+    <div class="meth-grid">
+      <div>
+        <div class="meth-ey">Methodology</div>
+        <p class="meth-p"><strong>What the percentages mean.</strong> Risk figures represent implied probability of an incident per 2-week summer trip with active outdoor activity. They are exposure models built from historical data, not actuarial probabilities or medical predictions.</p>
+        <p class="meth-p"><strong>Shark.</strong> ISAF historical attack counts divided by estimated annual coastal visitor volumes. Florida baseline: ~15 attacks per year against ~100 million coastal visits.</p>
+        <p class="meth-p"><strong>Lightning.</strong> NOAA state-level casualty rates per million people per year, adjusted for summer seasonality (74% of annual casualties occur June&ndash;August per NOAA SR-193) and scaled to a 2-week exposure window.</p>
+        <p class="meth-p"><strong>Jellyfish.</strong> NOAA exposure tier classifications for each destination. Tiers reflect species presence, seasonal activity, and reported sting frequency.</p>
+        <p class="meth-p"><strong>Heat.</strong> CDC Heat &amp; Health Tracker tier ratings, anchored to Arizona&rsquo;s documented 2.9% heat illness ER visit rate in peak summer months.</p>
+        <p class="meth-p"><strong>Overall tier.</strong> The average of applicable hazards only. Landlocked destinations score zero on shark and jellyfish, their overall reflects only the hazards that genuinely apply. Data retrieved May 2026. Not a scientific forecast.</p>
+      </div>
+      <div>
+        <div class="meth-ey">Sources</div>
+        <ul class="src-list">
+          <li><strong>Shark:</strong> ISAF Florida Museum; ISAF 2025 Worldwide Summary</li>
+          <li><strong>Lightning:</strong> CDC Lightning Data 2006&ndash;2021; NOAA Technical Memorandum NWS SR-193 (1959&ndash;1994)</li>
+          <li><strong>Jellyfish:</strong> NOAA Ocean Service; NOAA NCCOS; VIMS; Hawaii Ocean Safety</li>
+          <li><strong>Heat:</strong> CDC Heat &amp; Health Tracker; Heat.gov</li>
+          <li><strong>Comparable risks:</strong> NSC Injury Facts; NHTSA; CDC Food Safety; US Hole In One Insurance; AAAAI</li>
+        </ul>
+      </div>
+    </div>
+
+    <details class="raw-details">
+      <summary class="raw-summary">
+        <span>&#x1F4CA; Raw Dataset</span>
+        <span class="raw-arrow">&#x25BC;</span>
+      </summary>
+      <div class="raw-content">
+        <div class="raw-tabs">
+          <button class="raw-tab on" id="rt-ov">Overall</button>
+          <button class="raw-tab" id="rt-sh">&#x1F988; Shark</button>
+          <button class="raw-tab" id="rt-li">&#x26A1; Lightning</button>
+          <button class="raw-tab" id="rt-je">&#x1FAB7; Jellyfish</button>
+          <button class="raw-tab" id="rt-he">&#x1F321; Heat</button>
+        </div>
+        <div id="rp-ov" class="raw-panel on"><div class="raw-twrap"><table class="raw-tbl"><thead><tr><th>Destination</th><th>State</th><th>Shark Risk</th><th>Lightning Risk</th><th>Jellyfish Risk</th><th>Heat Risk</th><th>Tier</th></tr></thead><tbody id="raw-ov"></tbody></table></div></div>
+        <div id="rp-sh" class="raw-panel"><div class="raw-twrap"><table class="raw-tbl"><thead><tr><th>Rank</th><th>Destination</th><th>State</th><th>Risk %</th><th>Key Stat</th></tr></thead><tbody id="raw-sh"></tbody></table></div></div>
+        <div id="rp-li" class="raw-panel"><div class="raw-twrap"><table class="raw-tbl"><thead><tr><th>Rank</th><th>Destination</th><th>State</th><th>Risk %</th><th>Key Stat</th></tr></thead><tbody id="raw-li"></tbody></table></div></div>
+        <div id="rp-je" class="raw-panel"><div class="raw-twrap"><table class="raw-tbl"><thead><tr><th>Rank</th><th>Destination</th><th>State</th><th>Risk %</th><th>Key Stat</th></tr></thead><tbody id="raw-je"></tbody></table></div></div>
+        <div id="rp-he" class="raw-panel"><div class="raw-twrap"><table class="raw-tbl"><thead><tr><th>Rank</th><th>Destination</th><th>State</th><th>Risk %</th><th>Key Stat</th></tr></thead><tbody id="raw-he"></tbody></table></div></div>
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<script>
+var D = {"destinations":[{"id":"new-smyrna-beach","name":"New Smyrna Beach","state":"Florida","region":"Southeast","type":"Beach","shark":{"score":100,"stat":"Volusia County , home to New Smyrna Beach , is the shark attack capital of the world according to ISAF records. Florida recorded 11 unprovoked bites in 2025 alone.","source":"ISAF Florida Museum; ISAF 2025 Worldwide Summary"},"lightning":{"score":95,"stat":"Florida recorded 79 lightning deaths 2006 to 2021 , highest in the US. The state averages 1,523 total lightning casualties per NOAA SR-193 data (1959 to 1994).","source":"CDC 2006 to 2021; NOAA SR-193"},"jellyfish":{"score":95,"stat":"Portuguese man-o’-war active year-round on Florida’s Atlantic coast. Onshore winds push strandings onto popular swim beaches spring through summer.","source":"Florida Museum; NOAA Ocean Service"},"heat":{"score":80,"stat":"Florida rated Very High by CDC Heat & Health Tracker. Heat index regularly exceeds 105°F May through October.","source":"CDC Heat & Health Tracker"},"overall":92,"image":"https://greatoceancondos.icnd-cdn.com/images/blog/New-Smyrna-Beach.webp","img_portrait":false,"applicable_count":4,"ranks":{"overall":1,"shark":1,"lightning":2,"jellyfish":3,"heat":13},"probs":{"shark":{"pct":0.00015,"pct_display":"0.00015%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"1.8x higher than the average popular summer destination"},"lightning":{"pct":0.0133,"pct_display":"0.013%","comp_id":"hole_in_one","comp_text":"2x more likely than making a hole-in-one on a single attempt (0.008%)","dataset_note":"1.8x higher than the average popular summer destination"},"jellyfish":{"pct":0.65,"pct_display":"0.650%","comp_id":"flight_canceled","comp_text":"3x less likely than your flight being canceled today (~2%)","dataset_note":"2.2x higher than the average popular summer destination"},"heat":{"pct":2.32,"pct_display":"2.3%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"florida-keys","name":"Florida Keys","state":"Florida","region":"Southeast","type":"Beach","shark":{"score":78,"stat":"The Keys’ reef system attracts both marine life and divers. Florida leads the nation with 928 recorded attacks and 11 bites in 2025.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":95,"stat":"The Keys’ exposed low-lying geography surrounded by water creates extreme lightning vulnerability. Florida’s 79 CDC-recorded deaths lead the nation.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":100,"stat":"Portuguese man-o’-war and box jellyfish both active in Keys waters year-round. Snorkelers face consistent marine hazard exposure across the reef system.","source":"Florida Museum; NOAA"},"heat":{"score":85,"stat":"Tropical heat combined with very high humidity. Surrounding warm ocean water prevents meaningful cooling. Florida Very High tier , CDC.","source":"CDC Heat & Health Tracker"},"overall":90,"image":"https://images.unsplash.com/photo-1740990556921-6131d2a9d16c?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":2,"shark":7,"lightning":3,"jellyfish":1,"heat":8},"probs":{"shark":{"pct":0.000117,"pct_display":"0.00012%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.0133,"pct_display":"0.013%","comp_id":"hole_in_one","comp_text":"2x more likely than making a hole-in-one on a single attempt (0.008%)","dataset_note":"1.8x higher than the average popular summer destination"},"jellyfish":{"pct":0.8,"pct_display":"0.800%","comp_id":"flight_canceled","comp_text":"2x less likely than your flight being canceled today (~2%)","dataset_note":"2.7x higher than the average popular summer destination"},"heat":{"pct":2.465,"pct_display":"2.5%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"miami-beach","name":"Miami Beach","state":"Florida","region":"Southeast","type":"Beach","shark":{"score":82,"stat":"Florida’s 928 recorded historical attacks include consistent activity along Miami’s Atlantic shoreline. 11 Florida bites recorded in 2025.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":95,"stat":"Florida leads the nation with 79 lightning deaths 2006 to 2021 and 1,523 casualties recorded 1959 to 1994 (NOAA SR-193). Miami’s flat coastal geography provides no shelter.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":92,"stat":"Portuguese man-o’-war and moon jellyfish both active along Miami Beach year-round. Tentacles remain venomous after washing ashore.","source":"Florida Museum; NOAA Ocean Service"},"heat":{"score":82,"stat":"Heat index in Miami regularly exceeds 105°F June through September. Florida rated Very High tier by CDC.","source":"CDC Heat & Health Tracker"},"overall":88,"image":"https://images.unsplash.com/photo-1589083130544-0d6a2926e519?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":3,"shark":6,"lightning":4,"jellyfish":4,"heat":10},"probs":{"shark":{"pct":0.000123,"pct_display":"0.00012%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"1.5x higher than the average popular summer destination"},"lightning":{"pct":0.0133,"pct_display":"0.013%","comp_id":"hole_in_one","comp_text":"2x more likely than making a hole-in-one on a single attempt (0.008%)","dataset_note":"1.8x higher than the average popular summer destination"},"jellyfish":{"pct":0.65,"pct_display":"0.650%","comp_id":"flight_canceled","comp_text":"3x less likely than your flight being canceled today (~2%)","dataset_note":"2.2x higher than the average popular summer destination"},"heat":{"pct":2.378,"pct_display":"2.4%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"clearwater-beach","name":"Clearwater Beach","state":"Florida","region":"Southeast","type":"Beach","shark":{"score":75,"stat":"Gulf-side Florida sees consistent shark activity. Blacktip and spinner sharks are common seasonal visitors to warm shallow Gulf waters.","source":"ISAF Florida Museum"},"lightning":{"score":95,"stat":"Tampa Bay corridor is one of the most lightning-prone areas in the entire US. Florida’s 1,523 NOAA casualties lead the nation.","source":"CDC; NOAA SR-193; NWS"},"jellyfish":{"score":88,"stat":"Man-o’-war and moon jellyfish active in Gulf waters spring through summer. Gulf warms faster than Atlantic, creating earlier season blooms.","source":"Florida Museum; NOAA Ocean Service"},"heat":{"score":82,"stat":"Heat index in Tampa Bay regularly exceeds 105°F. Florida Very High heat tier , CDC Heat & Health Tracker.","source":"CDC Heat & Health Tracker"},"overall":85,"image":"https://images.unsplash.com/photo-1653571763003-91ddee7ecd87?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":4,"shark":8,"lightning":5,"jellyfish":5,"heat":11},"probs":{"shark":{"pct":0.0001125,"pct_display":"0.00011%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.0133,"pct_display":"0.013%","comp_id":"hole_in_one","comp_text":"2x more likely than making a hole-in-one on a single attempt (0.008%)","dataset_note":"1.8x higher than the average popular summer destination"},"jellyfish":{"pct":0.65,"pct_display":"0.650%","comp_id":"flight_canceled","comp_text":"3x less likely than your flight being canceled today (~2%)","dataset_note":"2.2x higher than the average popular summer destination"},"heat":{"pct":2.378,"pct_display":"2.4%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"galveston","name":"Galveston","state":"Texas","region":"Gulf Coast","type":"Beach","shark":{"score":48,"stat":"Texas has 45 recorded attacks and 1 bite in 2025. Galveston’s murky water reduces visibility, contributing to blacktip and bull shark encounters.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":78,"stat":"Texas recorded 36 lightning deaths 2006 to 2021 , second highest nationally , and 498 total casualties 1959 to 1994 (NOAA SR-193). Flat coastal terrain provides no shelter.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":75,"stat":"Portuguese man-o’-war and blue button jellyfish common along Galveston beaches spring through summer. Near-daily jellyfish reports during peak season.","source":"NOAA; Houston Chronicle"},"heat":{"score":85,"stat":"Texas rated Very High by CDC. Gulf humidity drives heat index above 105°F regularly. May through September sustained exposure.","source":"CDC Heat & Health Tracker"},"overall":72,"image":"https://images.unsplash.com/photo-1598805291186-612c3ca482a6?q=80&w=1548&auto=format&fit=crop","img_portrait":true,"applicable_count":4,"ranks":{"overall":10,"shark":14,"lightning":6,"jellyfish":9,"heat":9},"probs":{"shark":{"pct":7.2e-05,"pct_display":"0.0000720%","comp_id":"bowling_300","comp_text":"28x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.01092,"pct_display":"0.011%","comp_id":"hole_in_one","comp_text":"similar odds to making a hole-in-one on a single attempt (0.008%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.3,"pct_display":"0.300%","comp_id":"airport_screening","comp_text":"10x less likely than being selected for extra airport screening (~3%)","dataset_note":"Similar risk to the average popular summer destination"},"heat":{"pct":2.465,"pct_display":"2.5%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"padre-island-ns","name":"Padre Island NS","state":"Texas","region":"Gulf Coast","type":"Beach","shark":{"score":45,"stat":"Texas Gulf Coast has 45 recorded attacks. Padre Island’s warm shallow Gulf waters attract blacktip and bull sharks consistently in summer.","source":"ISAF Florida Museum"},"lightning":{"score":78,"stat":"Texas recorded 36 lightning deaths 2006 to 2021 , second highest nationally , and 498 total casualties 1959 to 1994. Flat barrier island with no shelter from storms.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":75,"stat":"Padre Island sees some of the most consistent jellyfish activity on the Gulf Coast. Man-o’-war, blue button, and moon jellyfish all present in summer.","source":"NOAA Ocean Service"},"heat":{"score":90,"stat":"South Texas heat is extreme. Texas Very High tier , CDC. Heat index on Padre Island regularly exceeds 108°F with no shade available on open beach.","source":"CDC Heat & Health Tracker"},"overall":72,"image":"https://images.unsplash.com/photo-1561330413-f081a168b660?q=80&w=1742&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":11,"shark":15,"lightning":7,"jellyfish":10,"heat":6},"probs":{"shark":{"pct":6.75e-05,"pct_display":"0.0000675%","comp_id":"bowling_300","comp_text":"30x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.01092,"pct_display":"0.011%","comp_id":"hole_in_one","comp_text":"similar odds to making a hole-in-one on a single attempt (0.008%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.3,"pct_display":"0.300%","comp_id":"airport_screening","comp_text":"10x less likely than being selected for extra airport screening (~3%)","dataset_note":"Similar risk to the average popular summer destination"},"heat":{"pct":2.61,"pct_display":"2.6%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"south-padre-island","name":"South Padre Island","state":"Texas","region":"Gulf Coast","type":"Beach","shark":{"score":42,"stat":"Texas Gulf Coast records 45 historical attacks. Bull and blacktip sharks active in warm shallow Gulf waters near South Padre.","source":"ISAF Florida Museum"},"lightning":{"score":78,"stat":"Texas 36 lightning deaths 2006 to 2021 and 498 casualties 1959 to 1994. South Texas Gulf Coast sees intense afternoon storms.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":72,"stat":"Portuguese man-o’-war, blue button, and moon jellyfish all active in South Padre waters. Gulf warmth extends the season.","source":"NOAA Ocean Service"},"heat":{"score":88,"stat":"South Texas among the hottest summer beach destinations nationally. Texas Very High heat tier , CDC. Heat index regularly exceeds 108°F.","source":"CDC Heat & Health Tracker"},"overall":70,"image":"https://cdn.sanity.io/images/nxpteyfv/goguides/7ebb1251e42e6ccf711912948bdbc41429ec4205-1600x1066.jpg","img_portrait":false,"applicable_count":4,"ranks":{"overall":13,"shark":16,"lightning":8,"jellyfish":11,"heat":7},"probs":{"shark":{"pct":6.3e-05,"pct_display":"0.0000630%","comp_id":"bowling_300","comp_text":"32x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.01092,"pct_display":"0.011%","comp_id":"hole_in_one","comp_text":"similar odds to making a hole-in-one on a single attempt (0.008%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.3,"pct_display":"0.300%","comp_id":"airport_screening","comp_text":"10x less likely than being selected for extra airport screening (~3%)","dataset_note":"Similar risk to the average popular summer destination"},"heat":{"pct":2.552,"pct_display":"2.6%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"myrtle-beach","name":"Myrtle Beach","state":"South Carolina","region":"Southeast","type":"Beach","shark":{"score":92,"stat":"South Carolina has 118 recorded historical attacks , third highest nationally. 2 unprovoked bites in 2025. Myrtle Beach’s high swimmer density and warm shallow water keep exposure elevated.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":48,"stat":"South Carolina recorded 12 lightning deaths 2006 to 2021 and 306 total casualties 1959 to 1994 (NOAA SR-193). Open beach with no shelter.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":72,"stat":"Portuguese man-o’-war strandings common along the Grand Strand. Wind-dependent stranding events can affect large stretches of beach without warning.","source":"ISAF; NOAA Ocean Service"},"heat":{"score":65,"stat":"South Carolina rated High tier by CDC. High humidity and summer temperatures combine for elevated heat illness risk.","source":"CDC Heat & Health Tracker"},"overall":69,"image":"https://images.unsplash.com/photo-1727862210575-541700749bd2?q=80&w=1931&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":14,"shark":2,"lightning":23,"jellyfish":12,"heat":17},"probs":{"shark":{"pct":0.000138,"pct_display":"0.00014%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"1.7x higher than the average popular summer destination"},"lightning":{"pct":0.00672,"pct_display":"0.00672%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.3,"pct_display":"0.300%","comp_id":"airport_screening","comp_text":"10x less likely than being selected for extra airport screening (~3%)","dataset_note":"Similar risk to the average popular summer destination"},"heat":{"pct":1.885,"pct_display":"1.9%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"outer-banks","name":"Outer Banks","state":"North Carolina","region":"Southeast","type":"Beach","shark":{"score":85,"stat":"80 recorded attacks in North Carolina. The Outer Banks saw 8 attacks in a single season (2015) , one of the most active short-period windows in US history. 1 bite in 2025.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":68,"stat":"North Carolina recorded 21 lightning deaths 2006 to 2021 , fourth highest nationally , and 629 total casualties 1959 to 1994 (NOAA SR-193).","source":"CDC; NOAA SR-193"},"jellyfish":{"score":52,"stat":"Sea nettles and man-o’-war present along Outer Banks during summer season. Exposure moderate but variable with wind and water temperature.","source":"NOAA Ocean Service"},"heat":{"score":48,"stat":"North Carolina rated Moderate to High by CDC. Ocean breezes moderate coastal temperatures but heat index can reach dangerous levels.","source":"CDC Heat & Health Tracker"},"overall":63,"image":"https://images.unsplash.com/photo-1621896997594-c6be196f3e07?q=80&w=1548&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":17,"shark":5,"lightning":11,"jellyfish":18,"heat":25},"probs":{"shark":{"pct":0.0001275,"pct_display":"0.00013%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"1.6x higher than the average popular summer destination"},"lightning":{"pct":0.00952,"pct_display":"0.00952%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.15,"pct_display":"0.150%","comp_id":"airport_screening","comp_text":"20x less likely than being selected for extra airport screening (~3%)","dataset_note":"2x lower than the average popular summer destination"},"heat":{"pct":1.392,"pct_display":"1.4%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"gulf-shores","name":"Gulf Shores","state":"Alabama","region":"Gulf Coast","type":"Beach","shark":{"score":40,"stat":"Alabama recorded 10 historical attacks along Gulf beaches. Blacktip and bull sharks active in warm shallow Gulf of Mexico waters.","source":"ISAF Florida Museum"},"lightning":{"score":65,"stat":"Alabama recorded 20 lightning deaths 2006 to 2021 , fifth highest nationally , and 295 total casualties 1959 to 1994 (NOAA SR-193). Gulf Coast storms are severe.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":72,"stat":"Gulf Shores sees consistent Portuguese man-o’-war strandings and jellyfish blooms May through September. Warm shallow Gulf supports dense populations.","source":"NOAA Ocean Service"},"heat":{"score":68,"stat":"Alabama rated High by CDC. Heat and humidity combine , Gulf water temperatures above 85°F provide little cooling relief.","source":"CDC Heat & Health Tracker"},"overall":61,"image":"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f1/f4/e5/gulf-state-park-fis.jpg?w=1400&h=-1&s=1","img_portrait":false,"applicable_count":4,"ranks":{"overall":18,"shark":18,"lightning":14,"jellyfish":13,"heat":16},"probs":{"shark":{"pct":6e-05,"pct_display":"0.0000600%","comp_id":"bowling_300","comp_text":"33x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.0091,"pct_display":"0.00910%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.3,"pct_display":"0.300%","comp_id":"airport_screening","comp_text":"10x less likely than being selected for extra airport screening (~3%)","dataset_note":"Similar risk to the average popular summer destination"},"heat":{"pct":1.972,"pct_display":"2.0%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"hilton-head","name":"Hilton Head Island","state":"South Carolina","region":"Southeast","type":"Beach","shark":{"score":75,"stat":"South Carolina has 118 recorded attacks , third highest nationally. 2 bites in 2025. Hilton Head’s warm inshore waters and high visitor density create consistent shark exposure.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":48,"stat":"South Carolina recorded 12 lightning deaths 2006 to 2021 and 306 casualties 1959 to 1994 (NOAA SR-193). Afternoon coastal storms are common.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":68,"stat":"Portuguese man-o’-war strandings common. Jellyfish High exposure tier for South Carolina coastline (NOAA). Wind-dependent stranding events.","source":"NOAA Ocean Service"},"heat":{"score":65,"stat":"South Carolina High heat tier , CDC. Hilton Head’s humidity and summer heat create real outdoor exposure risk.","source":"CDC Heat & Health Tracker"},"overall":64,"image":"https://images.unsplash.com/photo-1690970526023-2054da90656a?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":16,"shark":9,"lightning":24,"jellyfish":15,"heat":18},"probs":{"shark":{"pct":0.0001125,"pct_display":"0.00011%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.00672,"pct_display":"0.00672%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.15,"pct_display":"0.150%","comp_id":"airport_screening","comp_text":"20x less likely than being selected for extra airport screening (~3%)","dataset_note":"2x lower than the average popular summer destination"},"heat":{"pct":1.885,"pct_display":"1.9%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"grand-isle","name":"Grand Isle","state":"Louisiana","region":"Gulf Coast","type":"Beach","shark":{"score":28,"stat":"Louisiana recorded 5 historical attacks in Gulf coastal waters. Bull sharks present in murky Mississippi River delta waters.","source":"ISAF Florida Museum"},"lightning":{"score":48,"stat":"Louisiana recorded 12 lightning deaths 2006 to 2021 and 347 total casualties 1959 to 1994 (NOAA SR-193). Gulf Coast storms intense and frequent.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":58,"stat":"Gulf Coast Louisiana sees consistent man-o’-war and jellyfish activity. Warm Gulf water extends the active season significantly.","source":"NOAA Ocean Service"},"heat":{"score":82,"stat":"Louisiana Very High heat tier , CDC. Produces some of the highest heat index readings in the US. High humidity severely limits the body’s ability to cool.","source":"CDC Heat & Health Tracker; Heat.gov"},"overall":54,"image":"https://static.cozycozy.com/images/catalog/bg2/horizontal-grand-isle-la.jpg","img_portrait":false,"applicable_count":4,"ranks":{"overall":23,"shark":21,"lightning":25,"jellyfish":16,"heat":12},"probs":{"shark":{"pct":4.2e-05,"pct_display":"0.0000420%","comp_id":"bowling_300","comp_text":"48x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"1.9x lower than the average popular summer destination"},"lightning":{"pct":0.00672,"pct_display":"0.00672%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.15,"pct_display":"0.150%","comp_id":"airport_screening","comp_text":"20x less likely than being selected for extra airport screening (~3%)","dataset_note":"2x lower than the average popular summer destination"},"heat":{"pct":2.378,"pct_display":"2.4%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"waikiki","name":"Waikiki / Honolulu","state":"Hawaii","region":"Pacific","type":"Beach","shark":{"score":88,"stat":"Hawaii has 195 recorded attacks , second highest nationally , and 8 fatal attacks on record. 4 unprovoked bites recorded in 2025. Tiger sharks are the primary species.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":2,"stat":"Zero lightning deaths recorded in Hawaii 2006 to 2021 (CDC). Hawaii’s tropical climate produces minimal electrical storm activity.","source":"CDC 2006 to 2021"},"jellyfish":{"score":100,"stat":"Hawaii Ocean Safety issues box jellyfish advisories 9 to 10 days after every full moon for south and leeward shores. Box jellyfish are among the most venomous marine animals in the world.","source":"Hawaii Ocean Safety; Hawaii Dept of Health"},"heat":{"score":55,"stat":"Warm year-round with trade winds providing moderation. Hawaii sees elevated heat exposure in summer but lower than mainland hotspots.","source":"CDC Heat & Health Tracker"},"overall":61,"image":"https://images.unsplash.com/photo-1698094276348-c542aa9c5609?q=80&w=1548&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":19,"shark":4,"lightning":41,"jellyfish":2,"heat":21},"probs":{"shark":{"pct":0.000132,"pct_display":"0.00013%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"1.6x higher than the average popular summer destination"},"lightning":{"pct":0.00028,"pct_display":"0.00028%","comp_id":"slot_jackpot","comp_text":"14x less likely than hitting a slot machine jackpot (0.004%)","dataset_note":"26.3x lower than the average popular summer destination"},"jellyfish":{"pct":0.8,"pct_display":"0.800%","comp_id":"flight_canceled","comp_text":"2x less likely than your flight being canceled today (~2%)","dataset_note":"2.7x higher than the average popular summer destination"},"heat":{"pct":1.595,"pct_display":"1.6%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"north-shore-oahu","name":"North Shore, Oahu","state":"Hawaii","region":"Pacific","type":"Beach","shark":{"score":92,"stat":"Hawaii’s 195 recorded attacks include consistent North Shore activity. Tiger sharks frequent channels between islands. 4 Hawaii bites recorded in 2025.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":2,"stat":"Zero lightning deaths recorded in Hawaii 2006 to 2021 (CDC). Lightning is essentially a non-factor here.","source":"CDC 2006 to 2021"},"jellyfish":{"score":88,"stat":"North Shore waters see regular box jellyfish activity. Hawaii Ocean Safety’s lunar calendar advisories apply across all Oahu shores.","source":"Hawaii Ocean Safety"},"heat":{"score":52,"stat":"North Shore benefits from trade wind cooling. Heat exposure is moderate compared to mainland summer destinations.","source":"CDC Heat & Health Tracker"},"overall":58,"image":"https://images.unsplash.com/photo-1476574898132-040f50db0a01?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":21,"shark":3,"lightning":42,"jellyfish":6,"heat":24},"probs":{"shark":{"pct":0.000138,"pct_display":"0.00014%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"1.7x higher than the average popular summer destination"},"lightning":{"pct":0.00028,"pct_display":"0.00028%","comp_id":"slot_jackpot","comp_text":"14x less likely than hitting a slot machine jackpot (0.004%)","dataset_note":"26.3x lower than the average popular summer destination"},"jellyfish":{"pct":0.65,"pct_display":"0.650%","comp_id":"flight_canceled","comp_text":"3x less likely than your flight being canceled today (~2%)","dataset_note":"2.2x higher than the average popular summer destination"},"heat":{"pct":1.508,"pct_display":"1.5%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"tybee-island","name":"Tybee Island","state":"Georgia","region":"Southeast","type":"Beach","shark":{"score":35,"stat":"Georgia recorded 17 historical attacks on the Atlantic coastline. Blacktip, spinner, and bull sharks active in warm coastal waters.","source":"ISAF Florida Museum"},"lightning":{"score":58,"stat":"Georgia recorded 16 lightning deaths 2006 to 2021 and 410 total casualties 1959 to 1994 (NOAA SR-193). Humid subtropical storms are a consistent summer feature.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":42,"stat":"Cannonball jellyfish and sea nettles present in Georgia coastal waters in summer. Jellyfish activity moderate but consistent.","source":"NOAA Ocean Service"},"heat":{"score":65,"stat":"Georgia High heat tier , CDC. Humid subtropical heat peaks all summer. Heat index regularly exceeds 100°F.","source":"CDC Heat & Health Tracker"},"overall":50,"image":"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/4f/39/fb/sunsets-on-tybee.jpg?w=900&h=500&s=1","img_portrait":false,"applicable_count":4,"ranks":{"overall":24,"shark":20,"lightning":20,"jellyfish":20,"heat":19},"probs":{"shark":{"pct":5.25e-05,"pct_display":"0.0000525%","comp_id":"bowling_300","comp_text":"38x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"1.5x lower than the average popular summer destination"},"lightning":{"pct":0.00812,"pct_display":"0.00812%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.08,"pct_display":"0.080%","comp_id":"airport_screening","comp_text":"38x less likely than being selected for extra airport screening (~3%)","dataset_note":"3.7x lower than the average popular summer destination"},"heat":{"pct":1.885,"pct_display":"1.9%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"grand-canyon","name":"Grand Canyon","state":"Arizona","region":"Desert Southwest","type":"Park","shark":{"score":0,"stat":"Landlocked desert destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":65,"stat":"Arizona recorded 17 lightning deaths 2006 to 2021 and 164 total casualties 1959 to 1994 (NOAA SR-193). Grand Canyon rim hiking creates serious monsoon season exposure.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Landlocked desert destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":100,"stat":"Arizona rated Extreme by CDC. Grand Canyon inner gorge regularly exceeds 110°F. The National Park Service records multiple heat-related rescues and deaths annually. Extreme dry heat May through September.","source":"CDC Heat & Health Tracker; NPS"},"overall":82,"image":"https://plus.unsplash.com/premium_photo-1669050701110-a5eb879f1b6a?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":5,"shark":null,"lightning":15,"jellyfish":null,"heat":1},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.0091,"pct_display":"0.00910%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":2.9,"pct_display":"2.9%","comp_id":"flat_tire","comp_text":"2x less likely than getting a flat tire this year (~7%)","dataset_note":"1.7x higher than the average popular summer destination"}}},{"id":"sedona","name":"Sedona","state":"Arizona","region":"Desert Southwest","type":"Park","shark":{"score":0,"stat":"Landlocked desert destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":68,"stat":"Arizona recorded 17 lightning deaths 2006 to 2021 and 164 NOAA casualties. Sedona’s elevated terrain and exposed red rock trails create serious monsoon season lightning exposure.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Landlocked destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":95,"stat":"Sedona temperatures regularly exceed 105°F. Coconino County conducts multiple heat rescues from Sedona trails every summer. Arizona Extreme heat tier , CDC.","source":"CDC; Coconino County Emergency Services"},"overall":82,"image":"https://plus.unsplash.com/premium_photo-1733267072229-31bea780c39e?q=80&w=1724&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":6,"shark":null,"lightning":12,"jellyfish":null,"heat":5},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.00952,"pct_display":"0.00952%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":2.755,"pct_display":"2.8%","comp_id":"flat_tire","comp_text":"2x less likely than getting a flat tire this year (~7%)","dataset_note":"1.6x higher than the average popular summer destination"}}},{"id":"jersey-shore","name":"Jersey Shore","state":"New Jersey","region":"Northeast","type":"Beach","shark":{"score":42,"stat":"New Jersey recorded 16 historical attacks including 1 fatal. The 1916 Jersey Shore attacks , likely inspiration for Jaws , remain among the most famous in US history.","source":"ISAF Florida Museum"},"lightning":{"score":55,"stat":"New Jersey recorded 15 lightning deaths 2006 to 2021 , ninth highest nationally , and 185 total casualties 1959 to 1994 (NOAA SR-193).","source":"CDC; NOAA SR-193"},"jellyfish":{"score":58,"stat":"Atlantic sea nettles and lion’s mane jellyfish present along Jersey Shore in summer. Lion’s mane tentacles can exceed 100 feet.","source":"NOAA Ocean Service"},"heat":{"score":40,"stat":"New Jersey sees hot humid summers. Urban heat island effect amplifies temperatures inland. Moderate risk at the shore.","source":"CDC Heat & Health Tracker"},"overall":49,"image":"https://images.unsplash.com/photo-1652113953865-3f550792a88b?q=80&w=1736&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":26,"shark":17,"lightning":22,"jellyfish":17,"heat":34},"probs":{"shark":{"pct":6.3e-05,"pct_display":"0.0000630%","comp_id":"bowling_300","comp_text":"32x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.0077,"pct_display":"0.00770%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.15,"pct_display":"0.150%","comp_id":"airport_screening","comp_text":"20x less likely than being selected for extra airport screening (~3%)","dataset_note":"2x lower than the average popular summer destination"},"heat":{"pct":1.16,"pct_display":"1.2%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"1.5x lower than the average popular summer destination"}}},{"id":"phoenix-scottsdale","name":"Phoenix / Scottsdale","state":"Arizona","region":"Desert Southwest","type":"City","shark":{"score":0,"stat":"Landlocked desert destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":60,"stat":"Arizona recorded 17 lightning deaths 2006 to 2021 (CDC). Monsoon season July to September brings sudden intense electrical storms to Phoenix and Scottsdale.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Landlocked destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":100,"stat":"Phoenix is the hottest major US city. Arizona Extreme tier , CDC. Averages 110 days above 100°F per year. Multiple heat deaths recorded annually among visitors.","source":"CDC Heat & Health Tracker; NOAA"},"overall":80,"image":"https://images.unsplash.com/photo-1603470767407-1f6fd736b5d2?q=80&w=774&auto=format&fit=crop","img_portrait":true,"applicable_count":2,"ranks":{"overall":7,"shark":null,"lightning":19,"jellyfish":null,"heat":2},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.0084,"pct_display":"0.00840%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":2.9,"pct_display":"2.9%","comp_id":"flat_tire","comp_text":"2x less likely than getting a flat tire this year (~7%)","dataset_note":"1.7x higher than the average popular summer destination"}}},{"id":"lake-powell","name":"Lake Powell","state":"Arizona","region":"Desert Southwest","type":"Lake","shark":{"score":0,"stat":"Freshwater reservoir in desert. No coastal ocean access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":62,"stat":"Arizona recorded 17 lightning deaths 2006 to 2021 and 164 NOAA casualties. Open canyon walls and lake surface create exposed lightning conditions during monsoon season.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Freshwater reservoir. No marine jellyfish , exposure not applicable.","source":"N/A"},"heat":{"score":98,"stat":"Lake Powell sits in one of the hottest environments in the US. Arizona Extreme heat tier , CDC. Summer temperatures regularly exceed 110°F. Rock surfaces and water reflection amplify heat load significantly.","source":"CDC Heat & Health Tracker; NPS"},"overall":80,"image":"https://images.unsplash.com/photo-1614620273949-7f2cdee28eb8?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":8,"shark":null,"lightning":16,"jellyfish":null,"heat":4},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.00868,"pct_display":"0.00868%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":2.842,"pct_display":"2.8%","comp_id":"flat_tire","comp_text":"2x less likely than getting a flat tire this year (~7%)","dataset_note":"1.6x higher than the average popular summer destination"}}},{"id":"biloxi","name":"Biloxi Beach","state":"Mississippi","region":"Gulf Coast","type":"Beach","shark":{"score":22,"stat":"Mississippi recorded 2 historical attacks in Gulf coastal waters. Bull sharks present in murky Gulf water near river outflows.","source":"ISAF Florida Museum"},"lightning":{"score":40,"stat":"Mississippi recorded 9 lightning deaths 2006 to 2021 and 296 total casualties 1959 to 1994 (NOAA SR-193). Casualty rate 3.47 per million per year.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":45,"stat":"Mississippi Gulf Coast sees warm-season jellyfish presence. Man-o’-war occasional. Gulf warmth extends activity season.","source":"NOAA Ocean Service"},"heat":{"score":72,"stat":"Mississippi high humidity amplifies heat danger significantly. CDC rates Mississippi at elevated tier. Heat index routinely exceeds 105°F.","source":"CDC Heat & Health Tracker"},"overall":45,"image":"https://images.unsplash.com/photo-1664523971612-e1623fb66ec6?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":34,"shark":23,"lightning":30,"jellyfish":19,"heat":15},"probs":{"shark":{"pct":3.3e-05,"pct_display":"0.0000330%","comp_id":"bowling_300","comp_text":"61x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"2.5x lower than the average popular summer destination"},"lightning":{"pct":0.0056,"pct_display":"0.00560%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.08,"pct_display":"0.080%","comp_id":"airport_screening","comp_text":"38x less likely than being selected for extra airport screening (~3%)","dataset_note":"3.7x lower than the average popular summer destination"},"heat":{"pct":2.088,"pct_display":"2.1%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"san-francisco-bay","name":"San Francisco Bay Area","state":"California","region":"West Coast","type":"Beach","shark":{"score":72,"stat":"California recorded 138 historical attacks and 5 bites in 2025 including 1 fatal. Great white shark population has grown with recovering seal colonies near the Farallon Islands.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":35,"stat":"California recorded 8 lightning deaths 2006 to 2021. The marine layer suppresses convective storms along the coast in summer.","source":"CDC 2006 to 2021; NOAA SR-193"},"jellyfish":{"score":38,"stat":"Pacific sea nettles and by-the-wind sailors present in Bay Area waters in summer. Bloom intensity varies year to year.","source":"NOAA Ocean Service"},"heat":{"score":42,"stat":"SF coast is moderated by the Pacific. Inland Bay Area can reach 100°F+ during heat waves. California High tier , CDC.","source":"CDC Heat & Health Tracker"},"overall":47,"image":"https://plus.unsplash.com/premium_photo-1673002094407-a72547fa791a?q=80&w=774&auto=format&fit=crop","img_portrait":true,"applicable_count":4,"ranks":{"overall":29,"shark":10,"lightning":31,"jellyfish":22,"heat":31},"probs":{"shark":{"pct":0.000108,"pct_display":"0.00011%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.0049,"pct_display":"0.00490%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"1.5x lower than the average popular summer destination"},"jellyfish":{"pct":0.08,"pct_display":"0.080%","comp_id":"airport_screening","comp_text":"38x less likely than being selected for extra airport screening (~3%)","dataset_note":"3.7x lower than the average popular summer destination"},"heat":{"pct":1.218,"pct_display":"1.2%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"san-diego","name":"San Diego","state":"California","region":"West Coast","type":"Beach","shark":{"score":65,"stat":"California’s 138 recorded attacks include consistent San Diego area activity. 5 California bites in 2025 including 1 fatal. Juvenile white sharks active near La Jolla.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":35,"stat":"8 California lightning deaths 2006 to 2021. Coastal San Diego sees minimal storm activity due to marine layer.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":38,"stat":"Purple-striped jellyfish and Pacific sea nettles common in summer. Bloom intensity varies significantly year to year.","source":"NOAA Ocean Service"},"heat":{"score":45,"stat":"Coastal San Diego moderated by the Pacific. Inland areas reach 100°F+. California High tier , CDC.","source":"CDC Heat & Health Tracker"},"overall":46,"image":"https://images.unsplash.com/photo-1630375604571-4e370942fa65?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":30,"shark":12,"lightning":32,"jellyfish":23,"heat":28},"probs":{"shark":{"pct":9.75e-05,"pct_display":"0.0000975%","comp_id":"bowling_300","comp_text":"21x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.0049,"pct_display":"0.00490%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"1.5x lower than the average popular summer destination"},"jellyfish":{"pct":0.08,"pct_display":"0.080%","comp_id":"airport_screening","comp_text":"38x less likely than being selected for extra airport screening (~3%)","dataset_note":"3.7x lower than the average popular summer destination"},"heat":{"pct":1.305,"pct_display":"1.3%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"virginia-beach","name":"Virginia Beach","state":"Virginia","region":"Mid-Atlantic","type":"Beach","shark":{"score":28,"stat":"Virginia recorded 5 historical attacks in Atlantic coastal waters. Sandbar and spinner sharks active in late summer as water temperatures peak.","source":"ISAF Florida Museum"},"lightning":{"score":28,"stat":"Virginia recorded 5 lightning deaths 2006 to 2021 and 235 total casualties 1959 to 1994 (NOAA SR-193).","source":"CDC; NOAA SR-193"},"jellyfish":{"score":78,"stat":"Virginia Beach sits at the confluence of Chesapeake Bay sea nettle territory and open Atlantic. Sea nettles are a routine summer experience June through September (VIMS).","source":"VIMS Bridge; NOAA NCCOS"},"heat":{"score":48,"stat":"Virginia rated Moderate to High by CDC. Ocean breezes moderate temperatures but heat illness risk remains for extended outdoor activity.","source":"CDC Heat & Health Tracker"},"overall":46,"image":"https://images.unsplash.com/photo-1573510460136-8a26ce45ed2c?q=80&w=1933&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":31,"shark":22,"lightning":34,"jellyfish":8,"heat":26},"probs":{"shark":{"pct":4.2e-05,"pct_display":"0.0000420%","comp_id":"bowling_300","comp_text":"48x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"1.9x lower than the average popular summer destination"},"lightning":{"pct":0.00392,"pct_display":"0.00392%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"1.9x lower than the average popular summer destination"},"jellyfish":{"pct":0.3,"pct_display":"0.300%","comp_id":"airport_screening","comp_text":"10x less likely than being selected for extra airport screening (~3%)","dataset_note":"Similar risk to the average popular summer destination"},"heat":{"pct":1.392,"pct_display":"1.4%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"zion-bryce","name":"Zion / Bryce Canyon","state":"Utah","region":"Mountain West","type":"Park","shark":{"score":0,"stat":"Landlocked desert destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":68,"stat":"Utah recorded 7 lightning deaths 2006 to 2021 (CDC). Narrow canyon slot hikes and exposed rim trails create dangerous lightning exposure during monsoon season July through September.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Landlocked destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":78,"stat":"Utah Desert Southwest conditions. Zion canyon floor reaches extreme temperatures. Utah rated with elevated heat tier by CDC. Dry heat and canyon reflection amplify conditions.","source":"CDC Heat & Health Tracker; NPS"},"overall":73,"image":"https://images.unsplash.com/photo-1535515505622-7621ebc4fc58?q=80&w=774&auto=format&fit=crop","img_portrait":true,"applicable_count":2,"ranks":{"overall":9,"shark":null,"lightning":13,"jellyfish":null,"heat":14},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.00952,"pct_display":"0.00952%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":2.262,"pct_display":"2.3%","comp_id":"flat_tire","comp_text":"3x less likely than getting a flat tire this year (~7%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"rocky-mountain-np","name":"Rocky Mountain NP","state":"Colorado","region":"Mountain West","type":"Park","shark":{"score":0,"stat":"Landlocked mountain destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":100,"stat":"Colorado recorded 24 lightning deaths 2006 to 2021 , third highest nationally , and 394 total casualties 1959 to 1994 (NOAA SR-193). Above-treeline hiking creates direct exposure. Afternoon storms build daily in summer.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Landlocked mountain destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":42,"stat":"Altitude reduces summer heat but UV exposure at elevation is extreme. Dehydration is a consistent hazard above 10,000 feet.","source":"CDC Heat & Health Tracker"},"overall":71,"image":"https://images.unsplash.com/photo-1661305778623-56ba1aa2bdb0?q=80&w=1548&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":12,"shark":null,"lightning":1,"jellyfish":null,"heat":32},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.014,"pct_display":"0.014%","comp_id":"hole_in_one","comp_text":"2x more likely than making a hole-in-one on a single attempt (0.008%)","dataset_note":"1.9x higher than the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":1.218,"pct_display":"1.2%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"hamptons","name":"The Hamptons","state":"New York","region":"Northeast","type":"Beach","shark":{"score":52,"stat":"New York recorded 24 historical attacks including 4 fatal and 1 bite in 2025. Long Island shark activity has increased with recovering bunker fish populations.","source":"ISAF Florida Museum; ISAF 2025"},"lightning":{"score":42,"stat":"New York recorded 10 lightning deaths 2006 to 2021 and 577 total casualties 1959 to 1994 (NOAA SR-193). Open Long Island beaches are high-exposure environments.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":38,"stat":"Lion’s mane jellyfish increasingly present in late summer. Moon jellyfish active along Long Island Sound and Atlantic shore.","source":"NOAA Ocean Service"},"heat":{"score":35,"stat":"Hamptons benefits from Atlantic breezes. NYC urban heat island is significantly worse. Moderate coastal heat risk.","source":"CDC Heat & Health Tracker"},"overall":42,"image":"https://media.cntraveler.com/photos/6871375ad21de21c4619b202/16:9/w_2560%2Cc_limit/071125-Guide-To-Hamptons-Lede-GettyImages-494826370.jpg","img_portrait":false,"applicable_count":4,"ranks":{"overall":35,"shark":13,"lightning":28,"jellyfish":24,"heat":36},"probs":{"shark":{"pct":7.8e-05,"pct_display":"0.0000780%","comp_id":"bowling_300","comp_text":"26x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.00588,"pct_display":"0.00588%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.08,"pct_display":"0.080%","comp_id":"airport_screening","comp_text":"38x less likely than being selected for extra airport screening (~3%)","dataset_note":"3.7x lower than the average popular summer destination"},"heat":{"pct":1.015,"pct_display":"1.0%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"1.7x lower than the average popular summer destination"}}},{"id":"ocean-city-md","name":"Ocean City","state":"Maryland","region":"Mid-Atlantic","type":"Beach","shark":{"score":18,"stat":"Maryland recorded 2 historical attacks in Chesapeake Bay and Atlantic coastal waters. Sandbar sharks present in warmer months.","source":"ISAF Florida Museum"},"lightning":{"score":22,"stat":"Maryland recorded 3 lightning deaths 2006 to 2021 and 250 total casualties 1959 to 1994 (NOAA SR-193).","source":"CDC; NOAA SR-193"},"jellyfish":{"score":82,"stat":"Ocean City sits squarely in sea nettle territory. NOAA NCCOS operates a dedicated sea nettle forecast model for Chesapeake Bay. Season runs May through October.","source":"NOAA NCCOS; VIMS"},"heat":{"score":45,"stat":"Maryland rated Moderate by CDC. Atlantic breezes help but humidity significantly increases heat index.","source":"CDC Heat & Health Tracker"},"overall":42,"image":"https://images.unsplash.com/photo-1579138961552-fcff8607da2e?q=80&w=1548&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":36,"shark":24,"lightning":35,"jellyfish":7,"heat":29},"probs":{"shark":{"pct":2.7e-05,"pct_display":"0.0000270%","comp_id":"bowling_300","comp_text":"74x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"3x lower than the average popular summer destination"},"lightning":{"pct":0.00308,"pct_display":"0.00308%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"2.4x lower than the average popular summer destination"},"jellyfish":{"pct":0.5,"pct_display":"0.500%","comp_id":"flight_canceled","comp_text":"4x less likely than your flight being canceled today (~2%)","dataset_note":"1.7x higher than the average popular summer destination"},"heat":{"pct":1.305,"pct_display":"1.3%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"cape-cod","name":"Cape Cod","state":"Massachusetts","region":"Northeast","type":"Beach","shark":{"score":68,"stat":"Great white shark detections off Cape Cod have increased dramatically since 2012. Massachusetts recorded 6 historical attacks. A fatal attack occurred at Wellfleet in 2018. The Atlantic White Shark Conservancy now operates a dedicated monitoring program.","source":"ISAF Florida Museum; Atlantic White Shark Conservancy"},"lightning":{"score":32,"stat":"Massachusetts recorded 6 lightning deaths 2006 to 2021 and 355 total casualties 1959 to 1994 (NOAA SR-193).","source":"CDC; NOAA SR-193"},"jellyfish":{"score":42,"stat":"Lion’s mane jellyfish with tentacles exceeding 6 feet present in late summer. Moon jellyfish common throughout the season.","source":"NOAA Ocean Service"},"heat":{"score":28,"stat":"Cape Cod is one of the cooler summer beach destinations. Cold Atlantic water moderates temperatures significantly. Lower heat risk than any Gulf or Southeast destination.","source":"CDC Heat & Health Tracker"},"overall":42,"image":"https://images.unsplash.com/photo-1686950429623-abb1ef6ea8e8?q=80&w=1548&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":37,"shark":11,"lightning":33,"jellyfish":21,"heat":39},"probs":{"shark":{"pct":0.000102,"pct_display":"0.00010%","comp_id":"royal_flush","comp_text":"similar odds to being dealt a royal flush in poker (0.00015%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.00448,"pct_display":"0.00448%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"1.6x lower than the average popular summer destination"},"jellyfish":{"pct":0.08,"pct_display":"0.080%","comp_id":"airport_screening","comp_text":"38x less likely than being selected for extra airport screening (~3%)","dataset_note":"3.7x lower than the average popular summer destination"},"heat":{"pct":0.812,"pct_display":"0.812%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"2.2x lower than the average popular summer destination"}}},{"id":"great-smoky-mountains","name":"Great Smoky Mountains","state":"Tennessee","region":"Southeast","type":"Park","shark":{"score":0,"stat":"Landlocked mountain destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":72,"stat":"Tennessee recorded 7 lightning deaths 2006 to 2021 and 473 total casualties 1959 to 1994 (NOAA SR-193). Mountain terrain and afternoon convective storms create serious hiker exposure.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Landlocked destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":60,"stat":"Tennessee rated with elevated heat risk by CDC. Valley areas can reach dangerous temperatures. High humidity amplifies heat stress throughout the park.","source":"CDC Heat & Health Tracker"},"overall":66,"image":"https://images.unsplash.com/photo-1587579104732-0799598b0111?q=80&w=2603&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":15,"shark":null,"lightning":10,"jellyfish":null,"heat":20},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.01008,"pct_display":"0.010%","comp_id":"hole_in_one","comp_text":"similar odds to making a hole-in-one on a single attempt (0.008%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":1.74,"pct_display":"1.7%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"assateague-island","name":"Assateague Island","state":"Maryland","region":"Mid-Atlantic","type":"Beach","shark":{"score":18,"stat":"Maryland recorded 2 historical attacks. Assateague’s open Atlantic coast sees sandbar shark activity in summer months.","source":"ISAF Florida Museum"},"lightning":{"score":22,"stat":"Maryland recorded 3 lightning deaths 2006 to 2021 and 250 total casualties 1959 to 1994 (NOAA SR-193). Open barrier island with no storm shelter.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":72,"stat":"Assateague sits adjacent to Chesapeake Bay sea nettle territory. Sea nettles active May through October (NOAA NCCOS). Man-o’-war also present on Atlantic side.","source":"NOAA NCCOS; VIMS"},"heat":{"score":45,"stat":"Maryland moderate heat risk. Barrier island location provides some ocean breeze moderation.","source":"CDC Heat & Health Tracker"},"overall":39,"image":"https://images.unsplash.com/photo-1722096498933-456ed706ed3c?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":38,"shark":25,"lightning":36,"jellyfish":14,"heat":30},"probs":{"shark":{"pct":2.7e-05,"pct_display":"0.0000270%","comp_id":"bowling_300","comp_text":"74x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"3x lower than the average popular summer destination"},"lightning":{"pct":0.00308,"pct_display":"0.00308%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"2.4x lower than the average popular summer destination"},"jellyfish":{"pct":0.3,"pct_display":"0.300%","comp_id":"airport_screening","comp_text":"10x less likely than being selected for extra airport screening (~3%)","dataset_note":"Similar risk to the average popular summer destination"},"heat":{"pct":1.305,"pct_display":"1.3%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"las-vegas-strip","name":"Las Vegas Strip","state":"Nevada","region":"Desert Southwest","type":"City","shark":{"score":0,"stat":"Landlocked desert destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":18,"stat":"Nevada recorded 1 lightning death 2006 to 2021 and 18 total casualties 1959 to 1994 (NOAA SR-193). Desert monsoon storms produce sudden lightning.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Landlocked desert destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":100,"stat":"Nevada rated Extreme by CDC. Las Vegas averages 25+ days above 105°F annually. The Strip’s concrete amplifies urban heat island effect. June through September sustained extreme heat.","source":"CDC Heat & Health Tracker; NOAA"},"overall":59,"image":"https://images.unsplash.com/photo-1605833556294-ea5c7a74f57d?q=80&w=1748&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":20,"shark":null,"lightning":38,"jellyfish":null,"heat":3},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.00252,"pct_display":"0.00252%","comp_id":"slot_jackpot","comp_text":"2x less likely than hitting a slot machine jackpot (0.004%)","dataset_note":"2.9x lower than the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":2.9,"pct_display":"2.9%","comp_id":"flat_tire","comp_text":"2x less likely than getting a flat tire this year (~7%)","dataset_note":"1.7x higher than the average popular summer destination"}}},{"id":"lake-of-the-ozarks","name":"Lake of the Ozarks","state":"Missouri","region":"Midwest","type":"Lake","shark":{"score":0,"stat":"Freshwater lake destination. No coastal ocean access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":62,"stat":"Missouri recorded 16 lightning deaths 2006 to 2021 and 176 total casualties 1959 to 1994 (NOAA SR-193). Open lake surfaces carry high lightning exposure during frequent Midwest storms.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Freshwater lake. No marine jellyfish , exposure not applicable.","source":"N/A"},"heat":{"score":55,"stat":"Missouri sees hot humid summers. Heat index regularly exceeds 100°F at the lake. Moderate to high heat risk for extended outdoor activity.","source":"CDC Heat & Health Tracker"},"overall":58,"image":"https://i0.wp.com/www.travelworldmagazine.com/wp-content/uploads/2024/06/LOTO-waterfront-houses-sunset.jpg?resize=800%2C524&ssl=1","img_portrait":false,"applicable_count":2,"ranks":{"overall":22,"shark":null,"lightning":17,"jellyfish":null,"heat":22},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.00868,"pct_display":"0.00868%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":1.595,"pct_display":"1.6%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"yellowstone","name":"Yellowstone","state":"Wyoming","region":"Mountain West","type":"Park","shark":{"score":0,"stat":"Landlocked mountain destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":62,"stat":"Wyoming recorded 2 lightning deaths 2006 to 2021 and 104 total casualties 1959 to 1994 (NOAA SR-193). NOAA data shows Wyoming has one of the highest casualty rates per capita historically at 7.21 per million.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Landlocked destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":38,"stat":"High elevation moderates summer temperatures. UV exposure is significant above 7,000 feet. Dehydration risk in dry mountain air.","source":"CDC Heat & Health Tracker"},"overall":50,"image":"https://images.unsplash.com/photo-1629985692757-48648f4f1fc1?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":25,"shark":null,"lightning":18,"jellyfish":null,"heat":35},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.00868,"pct_display":"0.00868%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":1.102,"pct_display":"1.1%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"1.6x lower than the average popular summer destination"}}},{"id":"chicago-lakefront","name":"Chicago Lakefront","state":"Illinois","region":"Midwest","type":"Beach","shark":{"score":0,"stat":"Freshwater Great Lake , no sharks present. Shark exposure not applicable.","source":"N/A"},"lightning":{"score":42,"stat":"Illinois recorded 7 lightning deaths 2006 to 2021 and 360 total casualties 1959 to 1994 (NOAA SR-193). Lake Michigan’s flat open shoreline provides zero shelter from afternoon storms.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Freshwater Great Lake , no marine jellyfish present. Jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":55,"stat":"Chicago’s 1995 heat wave killed 739 people. Illinois urban heat island creates extreme conditions. CDC records Chicago as one of the most heat-vulnerable urban environments in the US.","source":"CDC Heat & Health Tracker"},"overall":48,"image":"https://images.unsplash.com/photo-1602276119677-a0230a8f504f?q=80&w=1931&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":27,"shark":null,"lightning":29,"jellyfish":null,"heat":23},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.00588,"pct_display":"0.00588%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":1.595,"pct_display":"1.6%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"lake-tahoe","name":"Lake Tahoe","state":"California","region":"Mountain West","type":"Lake","shark":{"score":0,"stat":"Freshwater mountain lake. No coastal ocean access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":48,"stat":"Sierra Nevada elevation creates serious afternoon lightning exposure. California recorded 8 lightning deaths 2006 to 2021. Lake Tahoe’s open water and exposed shoreline amplify risk.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Freshwater mountain lake. No marine jellyfish , exposure not applicable.","source":"N/A"},"heat":{"score":48,"stat":"Lake Tahoe’s elevation moderates heat. California High tier , CDC. Inland areas and lower elevations see significant summer heat.","source":"CDC Heat & Health Tracker"},"overall":48,"image":"https://images.unsplash.com/photo-1597796608813-002d2de5123d?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":28,"shark":null,"lightning":26,"jellyfish":null,"heat":27},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.00672,"pct_display":"0.00672%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":1.392,"pct_display":"1.4%","comp_id":"bee_sting","comp_text":"similar odds to being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"glacier-np","name":"Glacier National Park","state":"Montana","region":"Mountain West","type":"Park","shark":{"score":0,"stat":"Landlocked mountain destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":58,"stat":"Montana recorded 5 lightning deaths 2006 to 2021 and 64 total casualties 1959 to 1994 (NOAA SR-193). Alpine hiking above treeline in Glacier creates serious afternoon lightning exposure.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Landlocked destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":35,"stat":"Glacier’s alpine climate keeps summer temperatures moderate. Heat illness risk is lower than most destinations but UV at elevation is significant.","source":"CDC Heat & Health Tracker"},"overall":46,"image":"https://images.unsplash.com/photo-1597441200453-8360298c4e7a?q=80&w=1932&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":32,"shark":null,"lightning":21,"jellyfish":null,"heat":37},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.00812,"pct_display":"0.00812%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":1.015,"pct_display":"1.0%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"1.7x lower than the average popular summer destination"}}},{"id":"mount-washington","name":"Mount Washington","state":"New Hampshire","region":"Northeast","type":"Park","shark":{"score":0,"stat":"Landlocked mountain destination. No coastal access , shark exposure not applicable.","source":"N/A"},"lightning":{"score":75,"stat":"Mount Washington is one of the most lightning-exposed summits in the eastern US. New Hampshire recorded 76 total lightning casualties 1959 to 1994 (NOAA SR-193). Summit elevation and exposed ridgelines create extreme risk.","source":"NOAA SR-193; Mount Washington Observatory"},"jellyfish":{"score":0,"stat":"Landlocked mountain destination. No coastal access , jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":18,"stat":"Summit temperatures rarely reach dangerous heat levels. One of the coolest summer destinations in the dataset.","source":"CDC Heat & Health Tracker"},"overall":46,"image":"https://images.unsplash.com/photo-1564577159783-3bc8e80b4eae?q=80&w=1742&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":33,"shark":null,"lightning":9,"jellyfish":null,"heat":41},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.0105,"pct_display":"0.011%","comp_id":"hole_in_one","comp_text":"similar odds to making a hole-in-one on a single attempt (0.008%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":0.522,"pct_display":"0.522%","comp_id":"bee_sting","comp_text":"4x less likely than being stung by a bee this summer (~2%)","dataset_note":"3.3x lower than the average popular summer destination"}}},{"id":"rehoboth-beach","name":"Rehoboth Beach","state":"Delaware","region":"Mid-Atlantic","type":"Beach","shark":{"score":18,"stat":"Delaware recorded 5 historical attacks on the Atlantic shoreline. Sandbar and sand tiger sharks present in summer months.","source":"ISAF Florida Museum"},"lightning":{"score":12,"stat":"Delaware recorded 0 lightning deaths 2006 to 2021 and 42 total casualties 1959 to 1994 (NOAA SR-193). Open Atlantic beach provides no shelter.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":35,"stat":"Atlantic sea nettles and occasional lion’s mane present along Delaware coast in summer peak season.","source":"NOAA Ocean Service"},"heat":{"score":42,"stat":"Delaware sees warm humid summers. Heat index elevated during peak season. Moderate overall heat risk.","source":"CDC Heat & Health Tracker"},"overall":27,"image":"https://images.unsplash.com/photo-1560178290-43a055ae5106?q=80&w=870&auto=format&fit=crop","img_portrait":true,"applicable_count":4,"ranks":{"overall":40,"shark":26,"lightning":39,"jellyfish":25,"heat":33},"probs":{"shark":{"pct":2.7e-05,"pct_display":"0.0000270%","comp_id":"bowling_300","comp_text":"74x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"3x lower than the average popular summer destination"},"lightning":{"pct":0.00168,"pct_display":"0.00168%","comp_id":"slot_jackpot","comp_text":"2x less likely than hitting a slot machine jackpot (0.004%)","dataset_note":"4.4x lower than the average popular summer destination"},"jellyfish":{"pct":0.08,"pct_display":"0.080%","comp_id":"airport_screening","comp_text":"38x less likely than being selected for extra airport screening (~3%)","dataset_note":"3.7x lower than the average popular summer destination"},"heat":{"pct":1.218,"pct_display":"1.2%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"Similar risk to the average popular summer destination"}}},{"id":"cannon-beach","name":"Cannon Beach","state":"Oregon","region":"Pacific Northwest","type":"Beach","shark":{"score":38,"stat":"Oregon recorded 29 historical attacks in cold Pacific waters. Great white sharks range the full West Coast from the Farallon Islands north. Cold water and lower swimmer density keep counts lower than California.","source":"ISAF Florida Museum"},"lightning":{"score":10,"stat":"Oregon recorded 1 lightning death 2006 to 2021 and 26 total casualties 1959 to 1994 (NOAA SR-193). Pacific marine layer suppresses thunderstorm activity.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":22,"stat":"Cold Pacific waters limit jellyfish. Moon jellyfish and occasional by-the-wind sailors present in summer. Bloom intensity varies.","source":"NOAA Ocean Service"},"heat":{"score":28,"stat":"Pacific Northwest heat waves have increased , 2021 heat dome set records. Cannon Beach remains cooler than inland Oregon.","source":"CDC Heat & Health Tracker"},"overall":24,"image":"https://images.unsplash.com/photo-1593098437902-306760c67b35?q=80&w=1744&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":41,"shark":19,"lightning":40,"jellyfish":26,"heat":40},"probs":{"shark":{"pct":5.7e-05,"pct_display":"0.0000570%","comp_id":"bowling_300","comp_text":"35x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"Similar risk to the average popular summer destination"},"lightning":{"pct":0.0014,"pct_display":"0.00140%","comp_id":"slot_jackpot","comp_text":"3x less likely than hitting a slot machine jackpot (0.004%)","dataset_note":"5.3x lower than the average popular summer destination"},"jellyfish":{"pct":0.03,"pct_display":"0.030%","comp_id":"hole_in_one","comp_text":"4x more likely than making a hole-in-one on a single attempt (0.008%)","dataset_note":"9.9x lower than the average popular summer destination"},"heat":{"pct":0.812,"pct_display":"0.812%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"2.2x lower than the average popular summer destination"}}},{"id":"sleeping-bear-dunes","name":"Sleeping Bear Dunes","state":"Michigan","region":"Midwest","type":"Park","shark":{"score":0,"stat":"Freshwater Great Lake , no sharks present. Shark exposure not applicable.","source":"N/A"},"lightning":{"score":45,"stat":"Michigan recorded 9 lightning deaths 2006 to 2021 and 732 total casualties 1959 to 1994 , second highest nationally (NOAA SR-193). Lake Michigan shoreline is fully exposed.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":0,"stat":"Freshwater Great Lake , no marine jellyfish. Jellyfish exposure not applicable.","source":"N/A"},"heat":{"score":30,"stat":"Lake Michigan moderates summer temperatures. Heat risk is lower than southern destinations but heat waves affect the region.","source":"CDC Heat & Health Tracker"},"overall":38,"image":"https://images.unsplash.com/photo-1722626239078-6484b07dfc54?q=80&w=1740&auto=format&fit=crop","img_portrait":false,"applicable_count":2,"ranks":{"overall":39,"shark":null,"lightning":27,"jellyfish":null,"heat":38},"probs":{"shark":{"pct":0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"lightning":{"pct":0.0063,"pct_display":"0.00630%","comp_id":"slot_jackpot","comp_text":"2x more likely than hitting a slot machine jackpot (0.004%)","dataset_note":"Similar risk to the average popular summer destination"},"jellyfish":{"pct":0.0,"pct_display":"0%","comp_id":null,"comp_text":"","dataset_note":""},"heat":{"pct":0.87,"pct_display":"0.870%","comp_id":"bee_sting","comp_text":"2x less likely than being stung by a bee this summer (~2%)","dataset_note":"2x lower than the average popular summer destination"}}},{"id":"acadia-np","name":"Acadia National Park","state":"Maine","region":"Northeast","type":"Park","shark":{"score":15,"stat":"Maine recorded 2 historical attacks. Cold Atlantic waters and recovering grey seal populations are increasing great white activity off the Maine coast.","source":"ISAF Florida Museum"},"lightning":{"score":22,"stat":"Maine recorded 3 lightning deaths 2006 to 2021 and 126 total casualties 1959 to 1994 (NOAA SR-193). Coastal and mountain terrain creates summer storm exposure.","source":"CDC; NOAA SR-193"},"jellyfish":{"score":22,"stat":"Colder water limits jellyfish. Moon jellyfish and occasional lion’s mane present in summer. Lower exposure than mid-Atlantic or southern destinations.","source":"NOAA Ocean Service"},"heat":{"score":18,"stat":"Maine is one of the coolest summer destinations in the US. Heat illness risk is the lowest in the dataset.","source":"CDC Heat & Health Tracker"},"overall":19,"image":"https://images.unsplash.com/photo-1609697992606-4d6ec6d6178a?q=80&w=1742&auto=format&fit=crop","img_portrait":false,"applicable_count":4,"ranks":{"overall":42,"shark":27,"lightning":37,"jellyfish":27,"heat":42},"probs":{"shark":{"pct":2.25e-05,"pct_display":"0.0000225%","comp_id":"bowling_300","comp_text":"89x less likely than bowling a perfect 300 game (0.002%)","dataset_note":"3.6x lower than the average popular summer destination"},"lightning":{"pct":0.00308,"pct_display":"0.00308%","comp_id":"slot_jackpot","comp_text":"similar odds to hitting a slot machine jackpot (0.004%)","dataset_note":"2.4x lower than the average popular summer destination"},"jellyfish":{"pct":0.03,"pct_display":"0.030%","comp_id":"hole_in_one","comp_text":"4x more likely than making a hole-in-one on a single attempt (0.008%)","dataset_note":"9.9x lower than the average popular summer destination"},"heat":{"pct":0.522,"pct_display":"0.522%","comp_id":"bee_sting","comp_text":"4x less likely than being stung by a bee this summer (~2%)","dataset_note":"3.3x lower than the average popular summer destination"}}}],"state_map":{"Florida":[{"id":"new-smyrna-beach","name":"New Smyrna Beach"},{"id":"florida-keys","name":"Florida Keys"},{"id":"miami-beach","name":"Miami Beach"},{"id":"clearwater-beach","name":"Clearwater Beach"}],"Texas":[{"id":"galveston","name":"Galveston"},{"id":"padre-island-ns","name":"Padre Island NS"},{"id":"south-padre-island","name":"South Padre Island"}],"South Carolina":[{"id":"myrtle-beach","name":"Myrtle Beach"},{"id":"hilton-head","name":"Hilton Head Island"}],"North Carolina":[{"id":"outer-banks","name":"Outer Banks"}],"Alabama":[{"id":"gulf-shores","name":"Gulf Shores"}],"Louisiana":[{"id":"grand-isle","name":"Grand Isle"}],"Hawaii":[{"id":"waikiki","name":"Waikiki / Honolulu"},{"id":"north-shore-oahu","name":"North Shore, Oahu"}],"Georgia":[{"id":"tybee-island","name":"Tybee Island"}],"Arizona":[{"id":"grand-canyon","name":"Grand Canyon"},{"id":"sedona","name":"Sedona"},{"id":"phoenix-scottsdale","name":"Phoenix / Scottsdale"},{"id":"lake-powell","name":"Lake Powell"}],"New Jersey":[{"id":"jersey-shore","name":"Jersey Shore"}],"Mississippi":[{"id":"biloxi","name":"Biloxi Beach"}],"California":[{"id":"san-francisco-bay","name":"San Francisco Bay Area"},{"id":"san-diego","name":"San Diego"},{"id":"lake-tahoe","name":"Lake Tahoe"}],"Virginia":[{"id":"virginia-beach","name":"Virginia Beach"}],"Utah":[{"id":"zion-bryce","name":"Zion / Bryce Canyon"}],"Colorado":[{"id":"rocky-mountain-np","name":"Rocky Mountain NP"}],"New York":[{"id":"hamptons","name":"The Hamptons"}],"Maryland":[{"id":"ocean-city-md","name":"Ocean City"},{"id":"assateague-island","name":"Assateague Island"}],"Massachusetts":[{"id":"cape-cod","name":"Cape Cod"}],"Tennessee":[{"id":"great-smoky-mountains","name":"Great Smoky Mountains"}],"Nevada":[{"id":"las-vegas-strip","name":"Las Vegas Strip"}],"Missouri":[{"id":"lake-of-the-ozarks","name":"Lake of the Ozarks"}],"Wyoming":[{"id":"yellowstone","name":"Yellowstone"}],"Illinois":[{"id":"chicago-lakefront","name":"Chicago Lakefront"}],"Montana":[{"id":"glacier-np","name":"Glacier National Park"}],"New Hampshire":[{"id":"mount-washington","name":"Mount Washington"}],"Delaware":[{"id":"rehoboth-beach","name":"Rehoboth Beach"}],"Oregon":[{"id":"cannon-beach","name":"Cannon Beach"}],"Michigan":[{"id":"sleeping-bear-dunes","name":"Sleeping Bear Dunes"}],"Maine":[{"id":"acadia-np","name":"Acadia National Park"}]},"states":["Alabama","Arizona","California","Colorado","Delaware","Florida","Georgia","Hawaii","Illinois","Louisiana","Maine","Maryland","Massachusetts","Michigan","Mississippi","Missouri","Montana","Nevada","New Hampshire","New Jersey","New York","North Carolina","Oregon","South Carolina","Tennessee","Texas","Utah","Virginia","Wyoming"],"top10":{"overall":["new-smyrna-beach","florida-keys","miami-beach","clearwater-beach","grand-canyon","sedona","phoenix-scottsdale","lake-powell","zion-bryce","galveston"],"shark":["new-smyrna-beach","myrtle-beach","north-shore-oahu","waikiki","outer-banks","miami-beach","florida-keys","clearwater-beach","hilton-head","san-francisco-bay"],"lightning":["rocky-mountain-np","new-smyrna-beach","florida-keys","miami-beach","clearwater-beach","galveston","padre-island-ns","south-padre-island","mount-washington","great-smoky-mountains"],"jellyfish":["florida-keys","waikiki","new-smyrna-beach","miami-beach","clearwater-beach","north-shore-oahu","ocean-city-md","virginia-beach","galveston","padre-island-ns"],"heat":["grand-canyon","phoenix-scottsdale","las-vegas-strip","lake-powell","sedona","padre-island-ns","south-padre-island","florida-keys","galveston","miami-beach"],"safest":["acadia-np","cannon-beach","rehoboth-beach","sleeping-bear-dunes","assateague-island","hamptons","ocean-city-md","cape-cod","biloxi","san-diego"]},"comparisons":[{"id":"sunburn","label":"getting sunburned this summer","pct":33.0,"pct_display":"33%","context":"1 in 3 Americans reports a sunburn each year (CDC)","source":"CDC National Health Interview Survey","emoji":"☀️","img":"https://plus.unsplash.com/premium_photo-1682535210542-21dceae4530c?q=80&w=776&auto=format&fit=crop"},{"id":"food_poisoning","label":"getting food poisoning this year","pct":16.7,"pct_display":"16.7%","context":"1 in 6 Americans gets food poisoning every year , 48 million cases (CDC/FDA)","source":"CDC / FDA","emoji":"🤢","img":"https://plus.unsplash.com/premium_photo-1661398831703-67ad78e9fc8a?q=80&w=1742&auto=format&fit=crop"},{"id":"lost_luggage","label":"losing your luggage on a flight","pct":1.2,"pct_display":"1.2%","context":"Airlines mishandle roughly 6 bags per 1,000 passengers , about 1.2% of trips (SITA Baggage Report)","source":"SITA Baggage IT Report","emoji":"🧳","img":"https://plus.unsplash.com/premium_photo-1664368832422-2bf8fbceadcb?q=80&w=1740&auto=format&fit=crop"},{"id":"flat_tire","label":"getting a flat tire this year","pct":6.8,"pct_display":"~7%","context":"About 220 million flat tires occur in the US annually , roughly 1 in 15 drivers per year","source":"US Tire Manufacturers Association","emoji":"🚗","img":"https://images.unsplash.com/photo-1601739722627-f00a99138ea1?q=80&w=1548&auto=format&fit=crop"},{"id":"fender_bender","label":"being in a minor car accident this year","pct":6.1,"pct_display":"6.1%","context":"~6 million car accidents per year across 330 million Americans (NHTSA)","source":"NHTSA","emoji":"🚗","img":"https://images.unsplash.com/photo-1673187139181-795761a40ca1?q=80&w=1740&auto=format&fit=crop"},{"id":"bee_sting","label":"being stung by a bee this summer","pct":2.0,"pct_display":"~2%","context":"Roughly 2 million Americans are stung by bees or wasps each year during outdoor activity (AAAAI)","source":"AAAAI","emoji":"🐝","img":"https://plus.unsplash.com/premium_photo-1661817353669-055b00b07cf3?q=80&w=1818&auto=format&fit=crop"},{"id":"roulette","label":"hitting your number on a single roulette spin","pct":2.7,"pct_display":"2.7%","context":"A single number bet on roulette pays 35:1 but wins on only 1 of 37 spins , a 2.7% chance","source":"Standard roulette odds","emoji":"🎰","img":"https://images.unsplash.com/photo-1714865212807-3ae87635a38d?q=80&w=1740&auto=format&fit=crop"},{"id":"flight_canceled","label":"your flight being canceled today","pct":1.8,"pct_display":"~2%","context":"US airlines cancel roughly 1.5 to 2% of scheduled flights on any given day (BTS)","source":"Bureau of Transportation Statistics","emoji":"✈️","img":"https://images.unsplash.com/photo-1522199873717-bc67b1a5e32b?q=80&w=1744&auto=format&fit=crop"},{"id":"find_money","label":"finding money on the street this year","pct":3.0,"pct_display":"~3%","context":"Surveys suggest roughly 1 in 33 Americans finds dropped cash in a given year","source":"YouGov / Finder survey data","emoji":"💵","img":"https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=1740&auto=format&fit=crop"},{"id":"blackjack","label":"winning a hand of blackjack","pct":42.0,"pct_display":"42%","context":"A basic strategy blackjack player wins roughly 42% of hands dealt (house edge ~0.5%)","source":"Standard blackjack odds","emoji":"🃏","img":"https://images.unsplash.com/photo-1618304925090-b68a8c744cbe?q=80&w=1740&auto=format&fit=crop"},{"id":"hole_in_one","label":"making a hole-in-one on a single attempt","pct":0.008,"pct_display":"0.008%","context":"Odds of an amateur golfer making a hole-in-one: 12,500 to 1 per par-3 attempt (US Hole In One Insurance)","source":"US Hole In One Insurance","emoji":"⛳","img":"https://plus.unsplash.com/premium_photo-1661678083196-8d0c021a979d?q=80&w=1742&auto=format&fit=crop"},{"id":"airport_screening","label":"being selected for extra airport screening","pct":3.0,"pct_display":"~3%","context":"TSA PreCheck SSSS designation affects roughly 1 in 30 travelers on any given journey","source":"TSA / travel industry estimates","emoji":"✈️","img":"https://plus.unsplash.com/premium_photo-1661497749694-f6e391602ece?q=80&w=1740&auto=format&fit=crop"},{"id":"slot_jackpot","label":"hitting a slot machine jackpot","pct":0.004,"pct_display":"0.004%","context":"Major slot machine jackpot odds typically range from 1 in 10,000 to 1 in 50,000 per spin","source":"Nevada Gaming Control Board","emoji":"🎰","img":"https://plus.unsplash.com/premium_photo-1671422251871-ef75ce459685?q=80&w=1740&auto=format&fit=crop"},{"id":"lightning_lifetime","label":"being struck by lightning in your lifetime","pct":0.0065,"pct_display":"0.0065%","context":"Lifetime odds: 1 in 15,300 (NOAA). Annual odds: 1 in 1.6 million (National Lightning Safety Council)","source":"NOAA / National Lightning Safety Council","emoji":"⚡","img":"https://images.unsplash.com/photo-1504123010103-b1f3fe484a32?q=80&w=700&auto=format&fit=crop"},{"id":"bowling_300","label":"bowling a perfect 300 game","pct":0.002,"pct_display":"0.002%","context":"Odds of a recreational bowler bowling a perfect 300 game: roughly 1 in 50,000 per game","source":"USBC","emoji":"🎳","img":"https://plus.unsplash.com/premium_photo-1679654236469-2006411291ec?q=80&w=1548&auto=format&fit=crop"},{"id":"royal_flush","label":"being dealt a royal flush in poker","pct":0.00015,"pct_display":"0.00015%","context":"Odds of being dealt a royal flush from a fresh deck: 1 in 649,740 hands","source":"Standard poker probability","emoji":"🃏","img":"https://plus.unsplash.com/premium_photo-1671683370408-0fced2447c65?q=80&w=772&auto=format&fit=crop"},{"id":"shark_national","label":"a shark attack , US national average","pct":2.1e-05,"pct_display":"0.000021%","context":"~70 unprovoked US shark attacks per year against 330M Americans , roughly 1 in 4.7 million annually (ISAF)","source":"ISAF Florida Museum","emoji":"🦈","img":"https://images.unsplash.com/photo-1563186627-0d185db94083?q=80&w=700&auto=format&fit=crop"}],"hazard_avgs":{"shark":8.116666666666666e-05,"lightning":0.007376666666666666,"jellyfish":0.29703703703703704,"heat":1.7482857142857142},"scale_points":[{"id":"blackjack","label":"Winning blackjack","pct":42.0,"emoji":"🃏","pct_display":"42%"},{"id":"sunburn","label":"Sunburn","pct":33.0,"emoji":"☀️","pct_display":"33%"},{"id":"food_poisoning","label":"Food poisoning","pct":16.7,"emoji":"🤢","pct_display":"17%"},{"id":"fender_bender","label":"Car accident","pct":6.1,"emoji":"🚗","pct_display":"6%"},{"id":"bee_sting","label":"Bee sting","pct":2.0,"emoji":"🐝","pct_display":"2%"},{"id":"lost_luggage","label":"Lost luggage","pct":1.2,"emoji":"🧳","pct_display":"1%"},{"id":"flight_canceled","label":"Flight canceled","pct":1.8,"emoji":"✈️","pct_display":"2%"},{"id":"hole_in_one","label":"Hole-in-one","pct":0.008,"emoji":"⛳","pct_display":"0.008%"},{"id":"slot_jackpot","label":"Slot jackpot","pct":0.004,"emoji":"🎰","pct_display":"0.004%"},{"id":"bowling_300","label":"Perfect 300","pct":0.002,"emoji":"🎳","pct_display":"0.002%"},{"id":"royal_flush","label":"Royal flush","pct":0.00015,"emoji":"🃏","pct_display":"0.00015%"}]};
+var IDX = {};
+D.destinations.forEach(function(d){ IDX[d.id] = d; });
+
+var COMP_IDX = {};
+D.comparisons.forEach(function(c){ COMP_IDX[c.id] = c; });
+
+var HKEYS = ["shark","lightning","jellyfish","heat"];
+var HIMGS = {
+  shark: [
+    "https://images.unsplash.com/photo-1563186627-0d185db94083?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1725408119883-75a8281dd95b?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1661882493643-4453c673b6ae?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1563186627-0d185db94083?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1725408119883-75a8281dd95b?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1661882493643-4453c673b6ae?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1563186627-0d185db94083?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1725408119883-75a8281dd95b?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1661882493643-4453c673b6ae?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1563186627-0d185db94083?q=80&w=700&auto=format&fit=crop"
+  ],
+  lightning: [
+    "https://images.unsplash.com/photo-1559087867-ce4c91325525?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1504123010103-b1f3fe484a32?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1728436970505-48bb57e7493d?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1559087867-ce4c91325525?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1504123010103-b1f3fe484a32?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1728436970505-48bb57e7493d?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1559087867-ce4c91325525?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1504123010103-b1f3fe484a32?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1728436970505-48bb57e7493d?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1559087867-ce4c91325525?q=80&w=700&auto=format&fit=crop"
+  ],
+  jellyfish: [
+    "https://images.unsplash.com/photo-1508311603478-ce574376c3cf?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1543007168-5fa9b3c5f5fb?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1684992858411-3e3ddf37c4c9?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1508311603478-ce574376c3cf?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1543007168-5fa9b3c5f5fb?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1684992858411-3e3ddf37c4c9?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1508311603478-ce574376c3cf?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1543007168-5fa9b3c5f5fb?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1684992858411-3e3ddf37c4c9?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1508311603478-ce574376c3cf?q=80&w=700&auto=format&fit=crop"
+  ],
+  heat: [
+    "https://images.unsplash.com/photo-1740560516658-5a94b0b715ed?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1689298477277-7e488d5ecc10?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1595798717822-bdd81bb04324?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1740560516658-5a94b0b715ed?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1689298477277-7e488d5ecc10?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1595798717822-bdd81bb04324?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1740560516658-5a94b0b715ed?q=80&w=700&auto=format&fit=crop",
+    "https://plus.unsplash.com/premium_photo-1689298477277-7e488d5ecc10?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1595798717822-bdd81bb04324?q=80&w=700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1740560516658-5a94b0b715ed?q=80&w=700&auto=format&fit=crop"
+  ]
+};
+
+// Populate select grouped by state
+var dsel = document.getElementById("dsel");
+D.states.forEach(function(state){
+  var grp = document.createElement("optgroup");
+  grp.label = state;
+  (D.state_map[state] || []).forEach(function(dest){
+    var o = document.createElement("option");
+    o.value = dest.id;
+    o.textContent = dest.name;
+    grp.appendChild(o);
+  });
+  dsel.appendChild(grp);
+});
+
+document.getElementById("gobtn").addEventListener("click", function(){
+  var id = dsel.value;
+  if(!id){ alert("Please select a destination."); return; }
+  render(id);
+});
+
+function tierFor(n){
+  if(n>=80) return{t:"Very High Risk",c:"#B8241C"};
+  if(n>=65) return{t:"High Risk",c:"#D94F2B"};
+  if(n>=50) return{t:"Low-Moderate Risk",c:"#C8961A"};
+  if(n>=35) return{t:"Low-Moderate Risk",c:"#2E86AB"};
+  return{t:"Low Risk",c:"#4ECDC4"};
+}
+function oc(n){
+  if(n>=80) return"#C0392B"; if(n>=65) return"#D4601A";
+  if(n>=50) return"#C8961A"; if(n>=35) return"#2E86AB"; return"#4ECDC4";
+}
+function rankLabel(n){ if(!n) return null; var s=["th","st","nd","rd"],v=n%100; return"#"+n+(s[(v-20)%10]||s[v]||s[0]); }
+
+function render(id){
+  var d = IDX[id];
+  if(!d) return;
+  var tier = tierFor(d.overall);
+
+  document.getElementById("ri").src = d.image;
+  document.getElementById("ri").alt = d.name;
+  if(d.img_portrait){ document.getElementById("ri").style.objectPosition="center top"; }
+  else{ document.getElementById("ri").style.objectPosition="center center"; }
+  document.getElementById("rname").textContent = d.name;
+  document.getElementById("rmeta").textContent = d.state+" \u00B7 "+d.region+" \u00B7 "+d.type;
+  var tb = document.getElementById("rtier");
+  tb.textContent = tier.t; tb.style.background = tier.c;
+  document.getElementById("rnote").textContent = "Average of "+d.applicable_count+" applicable hazard"+(d.applicable_count===1?"":"s");
+
+  // Rank strip
+  var rkkeys = ["overall","shark","lightning","jellyfish","heat"];
+  for(var i=0;i<5;i++){
+    var el = document.getElementById("rv"+i);
+    var rk = d.ranks[rkkeys[i]];
+    if(rk){ el.textContent=rankLabel(rk); el.className="rs-val"+(rk<=3?" top3":""); }
+    else{ el.textContent="N/A"; el.className="rs-val na"; }
+  }
+
+  // Hazard cards
+  HKEYS.forEach(function(h){
+    var sc = d[h].score;
+    var prob = d.probs[h];
+    var zero = sc===0;
+    document.getElementById("hc-"+h).className = "hcard"+(zero?" zero":"");
+
+    // Probability display
+    document.getElementById("hpct-"+h).textContent = zero ? "N/A" : prob.pct_display;
+
+    // Progress bar
+    document.getElementById("hbar-"+h).style.width = sc+"%";
+
+    // Rank pill
+    var rk = d.ranks[h];
+    var pill = document.getElementById("hrk-"+h);
+    if(rk && sc>0){ pill.textContent=rankLabel(rk)+" nationally"; pill.className="hc-rank-pill"+(rk===1?" gold":""); pill.style.display=""; }
+    else{ pill.style.display="none"; }
+
+    // Stat text
+    var statEl = document.getElementById("hstat-"+h);
+    statEl.className = zero ? "hc-zero" : "hc-stat";
+    statEl.textContent = d[h].stat;
+
+    // Context note: plain English translation of the risk
+    var ctxEl = document.getElementById("hctx-"+h);
+    if(ctxEl){
+      var note = "";
+      if(!zero && prob.comp_text){
+        var ct = prob.comp_text;
+        if(ct && ct.length > 0 && ct[0] >= "A" && ct[0] <= "Z"){
+          ct = ct[0].toLowerCase() + ct.slice(1);
+        }
+        note = "Roughly " + ct + ".";
+      }
+      ctxEl.textContent = note;
+      ctxEl.style.display = note ? "" : "none";
+    }
+
+    // Source
+    var srcEl = document.getElementById("hsrc-"+h);
+    var src = d[h].source;
+    srcEl.textContent = (src && src!=="N/A") ? "Source: "+src : "";
+    srcEl.style.display = (src && src!=="N/A") ? "" : "none";
+  });
+
+  var rw = document.getElementById("rw");
+  rw.classList.add("on");
+  buildCmpRow(d);
+  buildBarChart(d);
+  rw.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+// Build strips
+function buildStrip(hazard, containerId, useDestImg){
+  var ids = D.top10[hazard];
+  var el = document.getElementById(containerId);
+  var html = "";
+  for(var i=0;i<ids.length;i++){
+    var d = IDX[ids[i]];
+    if(!d) continue;
+    var sc = (hazard==="overall"||hazard==="safest") ? d.overall : d[hazard].score;
+    var img = useDestImg ? d.image : (Array.isArray(HIMGS[hazard]) ? HIMGS[hazard][i%HIMGS[hazard].length] : d.image);
+    // Show risk % for hazard strips
+    var dispVal = sc;
+    var dispUnit = "/100";
+    if(hazard!=="overall" && hazard!=="safest" && d.probs && d.probs[hazard]){
+      dispVal = d.probs[hazard].pct_display;
+      dispUnit = " risk";
+    }
+    html += "<div class=\"rcard"+(i===0?" no1":"")+"\" data-id=\""+d.id+"\">";
+    html += "<img class=\"rcard-img\" src=\""+img+"\" alt=\"\" loading=\"lazy\">";
+    html += "<div class=\"rcard-body\">";
+    html += "<div class=\"rcard-pos"+(i===0?" p1":"")+"\">"+(i===0?"\u{1F947} #1":"#"+(i+1))+"</div>";
+    html += "<div class=\"rcard-name\">"+d.name+"</div>";
+    html += "<div class=\"rcard-loc\">"+d.state+"</div>";
+    html += "<div class=\"rcard-pct\">"+dispVal+"<span>"+dispUnit+"</span></div>";
+    html += "</div></div>";
+  }
+  el.innerHTML = html;
+  el.querySelectorAll(".rcard").forEach(function(card){
+    card.addEventListener("click", function(){
+      var cid = this.getAttribute("data-id");
+      dsel.value = cid;
+      render(cid);
+      document.querySelector(".sw").scrollIntoView({behavior:"smooth",block:"start"});
+    });
+  });
+}
+
+buildStrip("overall","rc-ov",true);
+buildStrip("shark","rc-sh",false);
+buildStrip("lightning","rc-li",false);
+buildStrip("jellyfish","rc-je",false);
+buildStrip("heat","rc-he",false);
+buildStrip("safest","rc-sf",true);
+
+// Tabs
+var tabMap = {"tb-ov":"st-ov","tb-sh":"st-sh","tb-li":"st-li","tb-je":"st-je","tb-he":"st-he","tb-sf":"st-sf"};
+Object.keys(tabMap).forEach(function(tid){
+  document.getElementById(tid).addEventListener("click",function(){
+    document.querySelectorAll(".strip").forEach(function(s){s.classList.remove("on");});
+    document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("on");});
+    document.getElementById(tabMap[tid]).classList.add("on");
+    this.classList.add("on");
+  });
+});
+
+// Main table
+var sortCol="overall", sortDir="desc";
+
+var LOG_MIN=-6.0;var LOG_MAX=1.70;
+var HCOLORS={shark:"#1B6CA8",lightning:"#D4860A",jellyfish:"#7B4FA6",heat:"#D94F2B"};
+var HNAMES={shark:"Shark",lightning:"Lightning",jellyfish:"Jellyfish",heat:"Heat"};
+var HAVGS=D.hazard_avgs;
+
+// Images for everyday comparison items
+var COMP_IMGS = {
+  blackjack:      "https://images.unsplash.com/photo-1618304925090-b68a8c744cbe?q=80&w=80&auto=format&fit=crop",
+  sunburn:        "https://plus.unsplash.com/premium_photo-1682535210542-21dceae4530c?q=80&w=80&auto=format&fit=crop",
+  food_poisoning: "https://plus.unsplash.com/premium_photo-1661398831703-67ad78e9fc8a?q=80&w=80&auto=format&fit=crop",
+  fender_bender:  "https://images.unsplash.com/photo-1673187139181-795761a40ca1?q=80&w=80&auto=format&fit=crop",
+  bee_sting:      "https://plus.unsplash.com/premium_photo-1661817353669-055b00b07cf3?q=80&w=80&auto=format&fit=crop",
+  lost_luggage:   "https://plus.unsplash.com/premium_photo-1664368832422-2bf8fbceadcb?q=80&w=80&auto=format&fit=crop",
+  flight_canceled:"https://images.unsplash.com/photo-1522199873717-bc67b1a5e32b?q=80&w=80&auto=format&fit=crop",
+  hole_in_one:    "https://plus.unsplash.com/premium_photo-1661678083196-8d0c021a979d?q=80&w=80&auto=format&fit=crop",
+  slot_jackpot:   "https://plus.unsplash.com/premium_photo-1671422251871-ef75ce459685?q=80&w=80&auto=format&fit=crop",
+  bowling_300:    "https://plus.unsplash.com/premium_photo-1679654236469-2006411291ec?q=80&w=80&auto=format&fit=crop",
+  royal_flush:    "https://plus.unsplash.com/premium_photo-1671683370408-0fced2447c65?q=80&w=80&auto=format&fit=crop"
+};
+
+var HAZARD_IMGS = {
+  shark:     "https://images.unsplash.com/photo-1563186627-0d185db94083?q=80&w=80&auto=format&fit=crop",
+  lightning: "https://images.unsplash.com/photo-1559087867-ce4c91325525?q=80&w=80&auto=format&fit=crop",
+  jellyfish: "https://images.unsplash.com/photo-1508311603478-ce574376c3cf?q=80&w=80&auto=format&fit=crop",
+  heat:      "https://images.unsplash.com/photo-1740560516658-5a94b0b715ed?q=80&w=80&auto=format&fit=crop"
+};
+
+
+function buildCmpRow(d){
+  var HKEYS=["shark","lightning","jellyfish","heat"];
+  HKEYS.forEach(function(h){
+    var multEl=document.getElementById("cmp-mult-"+h);
+    var descEl=document.getElementById("cmp-desc-"+h);
+    if(!multEl) return;
+    var sc=d[h].score;
+    if(sc===0){
+      multEl.textContent="N/A";
+      multEl.className="cmp-mult na";
+      descEl.textContent="Not applicable for this destination";
+      return;
+    }
+    var pct=d.probs[h].pct;
+    var avg=HAVGS[h];
+    var ratio=pct/avg;
+    if(ratio>=1.5){
+      var r=ratio>=10?Math.round(ratio):Math.round(ratio*10)/10;
+      multEl.textContent=r+"x higher";
+      multEl.className="cmp-mult higher";
+      descEl.textContent="than the average popular summer destination";
+    } else if(ratio<=0.67){
+      var r2=(1/ratio)>=10?Math.round(1/ratio):Math.round((1/ratio)*10)/10;
+      multEl.textContent=r2+"x lower";
+      multEl.className="cmp-mult lower";
+      descEl.textContent="than the average popular summer destination";
+    } else {
+      multEl.textContent="Similar";
+      multEl.className="cmp-mult similar";
+      descEl.textContent="to the average popular summer destination";
+    }
+  });
+  var cmpRow=document.getElementById("cmp-row");
+  if(cmpRow) cmpRow.style.display="block";
+}
+
+function buildBarChart(d){
+  var el = document.getElementById("barchart");
+  var HKEYS = ["shark","lightning","jellyfish","heat"];
+
+  // Curated everyday items, covers full probability spectrum without clutter
+  var SHOW_IDS = ["sunburn","food_poisoning","fender_bender","bee_sting","flight_canceled","hole_in_one","slot_jackpot","royal_flush"];
+
+  var destItems = [];
+  HKEYS.forEach(function(h){
+    if(d[h].score === 0) return;
+    var pct = d.probs[h].pct;
+    if(pct <= 0) return;
+    var pctStr = pct>=1?pct.toFixed(1)+"%":pct>=0.01?pct.toFixed(3)+"%":pct>=0.0001?pct.toFixed(5)+"%":pct.toFixed(7)+"%";
+    destItems.push({type:"dest", h:h, pct:pct, pctStr:pctStr});
+  });
+
+  var allItems = [];
+  D.scale_points.forEach(function(sp){
+    if(SHOW_IDS.indexOf(sp.id) === -1) return;
+    allItems.push({type:"everyday", id:sp.id, label:sp.label, pct:sp.pct, pctStr:sp.pct_display});
+  });
+  destItems.forEach(function(di){ allItems.push(di); });
+  allItems.sort(function(a,b){ return b.pct - a.pct; });
+
+  if(!allItems.length) return;
+
+  var logMin = -7;
+  var logMax = Math.log10(42);
+
+  function barW(pct){
+    if(!pct||pct<=0) return 0;
+    var w = (Math.log10(pct) - logMin) / (logMax - logMin) * 100;
+    return Math.max(1, Math.min(100, Math.round(w*10)/10));
+  }
+
+  var html2 = '<div class="bc-row"><div class="bc-divider">Everyday odds for context: '+d.name+'</div></div>';
+
+  allItems.forEach(function(item){
+    var w = barW(item.pct);
+    var isEveryday = item.type === "everyday";
+    var imgHtml = "";
+    if(isEveryday && COMP_IMGS[item.id]){
+      imgHtml = '<img class="bc-icon" src="'+COMP_IMGS[item.id]+'" alt="'+item.label+'">';
+    } else if(!isEveryday && HAZARD_IMGS[item.h]){
+      imgHtml = '<img class="bc-icon" src="'+HAZARD_IMGS[item.h]+'" alt="'+HNAMES[item.h]+'">';
+    } else {
+      imgHtml = '<div class="bc-icon-box" style="background:rgba(30,58,95,.15)"></div>';
+    }
+
+    var label = isEveryday ? item.label : HNAMES[item.h];
+    var barColor = isEveryday ? "rgba(30,58,95,.18)" : HCOLORS[item.h];
+    var rowClass = isEveryday ? "bc-row" : "bc-row bc-dest";
+    var labelClass = isEveryday ? "bc-label" : "bc-label dest-label";
+    var pctClass = isEveryday ? "bc-pct" : "bc-pct dest-pct";
+
+    html2 += '<div class="'+rowClass+'">'
+      + '<div class="bc-meta">'+imgHtml+'<span class="'+labelClass+'">'+label+'</span></div>'
+      + '<div class="bc-bar-wrap"><div class="bc-bar" style="width:'+w+'%;background:'+barColor+'"></div></div>'
+      + '<div class="'+pctClass+'">'+item.pctStr+'</div>'
+      + '</div>';
+  });
+
+  el.innerHTML = html2;
+  document.getElementById("risk-scale-sec").style.display = "block";
+}
+
+function buildTable(){
+  var rows = D.destinations.slice();
+  rows.sort(function(a,b){
+    var av,bv;
+    if(sortCol==="name"){av=a.name;bv=b.name;}
+    else if(sortCol==="overall"||sortCol==="rank"){av=a.overall;bv=b.overall;}
+    else{av=a[sortCol].score;bv=b[sortCol].score;}
+    if(typeof av==="string") return sortDir==="asc"?av.localeCompare(bv):bv.localeCompare(av);
+    return sortDir==="asc"?av-bv:bv-av;
+  });
+  function pctCell(d,h){
+    if(d[h].score===0) return "<span class=\"pct-na\">N/A</span>";
+    return "<span class=\"pct-cell\">"+d.probs[h].pct_display+"</span>";
+  }
+  var html="";
+  rows.forEach(function(d,i){
+    var tier=tierFor(d.overall);
+    html+="<tr data-id=\""+d.id+"\">";
+    html+="<td class=\"td-rank\">"+(i+1)+"</td>";
+    html+="<td><span class=\"td-name\">"+d.name+"</span><span class=\"td-loc\">"+d.state+" \u00B7 "+d.type+"</span></td>";
+    html+="<td><span class=\"tier-pill\" style=\"background:"+tier.c+"\">"+tier.t+"</span></td>";
+    html+="<td>"+pctCell(d,"shark")+"</td>";
+    html+="<td>"+pctCell(d,"lightning")+"</td>";
+    html+="<td>"+pctCell(d,"jellyfish")+"</td>";
+    html+="<td>"+pctCell(d,"heat")+"</td>";
+    html+="</tr>";
+  });
+  document.getElementById("tbody").innerHTML=html;
+  document.querySelectorAll("#tbody tr").forEach(function(tr){
+    tr.addEventListener("click",function(){
+      var cid=this.getAttribute("data-id");
+      dsel.value=cid;
+      render(cid);
+      document.querySelector(".sw").scrollIntoView({behavior:"smooth",block:"start"});
+    });
+  });
+  document.querySelectorAll("thead th[data-c]").forEach(function(th){
+    th.classList.remove("as","asc","desc");
+    if(th.dataset.c===sortCol) th.classList.add("as",sortDir);
+  });
+}
+document.querySelectorAll("thead th[data-c]").forEach(function(th){
+  th.addEventListener("click",function(){
+    if(sortCol===th.dataset.c){sortDir=sortDir==="desc"?"asc":"desc";}
+    else{sortCol=th.dataset.c;sortDir=sortCol==="name"?"asc":"desc";}
+    buildTable();
+  });
+});
+buildTable();
+
+// Raw data tabs
+var rawTabMap={"rt-ov":"rp-ov","rt-sh":"rp-sh","rt-li":"rp-li","rt-je":"rp-je","rt-he":"rp-he"};
+Object.keys(rawTabMap).forEach(function(tid){
+  document.getElementById(tid).addEventListener("click",function(){
+    document.querySelectorAll(".raw-panel").forEach(function(p){p.classList.remove("on");});
+    document.querySelectorAll(".raw-tab").forEach(function(t){t.classList.remove("on");});
+    document.getElementById(rawTabMap[tid]).classList.add("on");
+    this.classList.add("on");
+  });
+});
+
+// Build raw data tables
+function buildRaw(){
+  var byOv = D.destinations.slice().sort(function(a,b){return b.overall-a.overall;});
+  function tierFor2(n){ if(n>=80)return"Very High Risk"; if(n>=65)return"High Risk"; if(n>=50)return"Low-Moderate Risk"; if(n>=35)return"Low-Moderate Risk"; return"Low Risk"; }
+  // Overall tab
+  document.getElementById("raw-ov").innerHTML = byOv.map(function(d,i){
+    return "<tr><td>"+d.name+"</td><td>"+d.state+"</td>"
+      +"<td>"+(d.shark.score>0?d.probs.shark.pct_display:"<span class=\"raw-na\">N/A</span>")+"</td>"
+      +"<td>"+(d.lightning.score>0?d.probs.lightning.pct_display:"<span class=\"raw-na\">N/A</span>")+"</td>"
+      +"<td>"+(d.jellyfish.score>0?d.probs.jellyfish.pct_display:"<span class=\"raw-na\">N/A</span>")+"</td>"
+      +"<td>"+(d.heat.score>0?d.probs.heat.pct_display:"<span class=\"raw-na\">N/A</span>")+"</td>"
+      +"<td>"+tierFor2(d.overall)+"</td></tr>";
+  }).join("");
+  // Hazard tabs
+  HKEYS.forEach(function(h,hi){
+    var tbodId = ["raw-sh","raw-li","raw-je","raw-he"][hi];
+    var scored = D.destinations.filter(function(d){return d[h].score>0;});
+    scored.sort(function(a,b){return b[h].score-a[h].score;});
+    document.getElementById(tbodId).innerHTML = scored.map(function(d,i){
+      return "<tr><td>"+(i+1)+"</td><td>"+d.name+"</td><td>"+d.state+"</td>"
+        +"<td class=\"raw-pct\">"+d.probs[h].pct_display+"</td>"
+        +"<td>"+d[h].stat+"<span class=\"raw-stat\">"+d.probs[h].comp_text+"</span></td>"
+        +"<td style=\"color:rgba(255,255,255,.5);font-size:10px\">"+d[h].source+"</td></tr>";
+    }).join("");
+  });
+}
+buildRaw();
+
+</script>
+</body>
+</html>
